@@ -58,8 +58,12 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array();
-
+// $autoload['libraries'] = array();
+if (is_cli()) {
+    $autoload['libraries'] = array('database');
+} else {
+    $autoload['libraries'] = array('database', 'session', "Template", "Auth");
+}
 /*
 | -------------------------------------------------------------------
 |  Auto-load Drivers
@@ -89,7 +93,8 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array();
+// $autoload['helper'] = array();
+$autoload['helper'] = array('url', 'file', 'form', 'haris', 'currency');
 
 /*
 | -------------------------------------------------------------------
