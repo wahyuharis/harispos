@@ -3,6 +3,8 @@ class Auth
 {
     function logged_in()
     {
+
+        // die();
         $ci = &get_instance();
 
         $username = $ci->session->userdata('username');
@@ -19,12 +21,20 @@ class Auth
             if ($db->num_rows() > 0) {
                 //
             } else {
-                $ci->session->sess_destroy();
-                $ci->session->set_flashdata('error_message', 'Maaf Anda Belum Login');
+                $ci->session->unset_userdata('id_users');
+                $ci->session->unset_userdata('id_jabatan');
+                $ci->session->unset_userdata('username');
+                $ci->session->unset_userdata('email');
+                $ci->session->unset_userdata('password');
+                $ci->session->set_flashdata('error_message', 'Maaf Username Dan Password Tidak dikenali');
                 redirect('login');
             }
         } else {
-            $ci->session->sess_destroy();
+            $ci->session->unset_userdata('id_users');
+            $ci->session->unset_userdata('id_jabatan');
+            $ci->session->unset_userdata('username');
+            $ci->session->unset_userdata('email');
+            $ci->session->unset_userdata('password');
             $ci->session->set_flashdata('error_message', 'Maaf Anda Belum Login');
             redirect('login');
         }
@@ -47,10 +57,10 @@ class Auth
 
         $userdata = $db->row_array();
 
-        if($userdata['nama_jabatan']=='superadmin'){
+        if ($userdata['nama_jabatan'] == 'superadmin') {
             return true;
-        }else{
+        } else {
             return false;
-        }        
+        }
     }
 }

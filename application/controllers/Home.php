@@ -6,8 +6,8 @@ class Home extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        // $auth=new Auth();
-        // $auth->logged_in();
+        $auth=new Auth();
+        $auth->logged_in();
 
         // $auth->is_superadmin();
     }

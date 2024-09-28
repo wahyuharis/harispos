@@ -22,7 +22,7 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
                 </li>
                 <li class="nav-item d-none d-sm-inline-block">
-                    <a href="<?= base_url() ?>" class="nav-link">Home</a>
+                    <a href="<?= base_url('home') ?>" class="nav-link">Home</a>
                 </li>
 
             </ul>
@@ -33,7 +33,7 @@
 
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbardrop" data-toggle="dropdown">
-                        Username
+                        <?= ucwords($this->session->userdata('username')) ?>
                     </a>
                     <div class="dropdown-menu">
                         <a class="dropdown-item" href="<?= base_url('profile') ?>">Profile</a>
@@ -51,7 +51,7 @@
             <!-- Brand Logo -->
             <a href="<?= base_url() ?>" class="brand-link">
                 <img src="<?= base_url('img/logo.png') ?>" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-                <span class="brand-text font-weight-light"><?=APP_NAME?></span>
+                <span class="brand-text font-weight-light"><?= APP_NAME ?></span>
             </a>
 
             <!-- Sidebar -->
@@ -62,13 +62,13 @@
                         <img src="<?= base_url('lte') ?>/dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Username</a>
+                        <a href="#" class="d-block"><?= ucwords($this->session->userdata('username')) ?></a>
                     </div>
                 </div>
 
                 <!-- SidebarSearch Form -->
                 <div class="form-inline">
-                    <div class="input-group" >
+                    <div class="input-group">
                         <input id="side_filter" class="form-control form-control-sidebar" type="text" placeholder="Search" aria-label="Search">
                         <div class="input-group-append">
                             <button class="btn btn-sidebar">
@@ -142,7 +142,7 @@
     <!-- AdminLTE App -->
     <script src="<?= base_url('lte') ?>/dist/js/adminlte.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             $("#side_filter").on('keyup change', function(e) {
                 var filter = $(this).val(),
                     count = 0;

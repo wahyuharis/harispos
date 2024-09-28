@@ -3,10 +3,10 @@ var glob_daterange_locale={
     "separator": " - ",
     "applyLabel": "Apply",
     "cancelLabel": "Cancel",
-    "fromLabel": "From",
-    "toLabel": "To",
+    "fromLabel": "Dari",
+    "toLabel": "Ke",
     "customRangeLabel": "Custom",
-    "weekLabel": "W",
+    "weekLabel": "Min",
     "daysOfWeek": [
         "Min",
         "Sen",

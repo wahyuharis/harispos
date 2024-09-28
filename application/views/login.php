@@ -119,6 +119,12 @@
 
       <?php } ?>
 
+      <?php if (strlen($this->session->flashdata('success_message')) > 0) { ?>
+
+        toastr.success('<?= $this->session->flashdata('success_message') ?>', 'Info');
+
+      <?php } ?>
+
     });
   </script>
 </body>
