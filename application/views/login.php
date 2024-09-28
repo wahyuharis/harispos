@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title><?= APP_NAME ?> Login </title>
-  <link rel="icon" href="<?= base_url('assets/' . FAV_ICON) ?>">
+  <link rel="icon" href="<?= base_url('img/logo.png') ?>">
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -23,7 +23,7 @@
     <div class="login-logo">
       <a href="#"><b><?= APP_NAME ?></b></a>
       <br>
-      <img width="50" height="50" src="<?= base_url('assets/' . APP_ICON) ?>">
+      <img width="50" height="50" src="<?= base_url('img/logo.png') ?>">
     </div>
     <!-- /.login-logo -->
     <div class="card">

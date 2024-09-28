@@ -1,8 +1,16 @@
+
+
+
+
+
 <!-- Google Font: Source Sans Pro -->
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
 <!-- Font Awesome -->
 <link rel="stylesheet" href="<?= base_url('lte/') ?>plugins/fontawesome-free/css/all.min.css">
 <!-- Theme style -->
+
+<link rel="stylesheet" href="<?= base_url('lte/') ?>plugins/pace-progress/themes/black/pace-theme-flat-top.css">
+   
 
 <!-- DataTables -->
 <link rel="stylesheet" href="<?= base_url('lte/') ?>plugins/datatables-bs4/css/dataTables.bootstrap4.min.css">
@@ -38,8 +46,13 @@
 <script src="<?= base_url('lte/') ?>plugins/jquery/jquery.min.js"></script>
 <!-- Bootstrap 4 -->
 <script src="<?= base_url('lte/') ?>plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+<script src="<?= base_url('lte') ?>/plugins/pace-progress/pace.min.js"></script>
+
 <!-- moment js -->
 <script src="<?=base_url('lte/')?>plugins/moment/moment.min.js"></script>
+
+
 
 <script src="<?=base_url('lte/')?>plugins/bs-custom-file-input/bs-custom-file-input.min.js"></script>
 

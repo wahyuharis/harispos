@@ -1,10 +1,25 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Home extends CI_Controller {
+class Home extends CI_Controller
+{
 
-	public function index()
-	{
-		$this->load->view('template');
-	}
+    function __construct()
+    {
+        parent::__construct();
+        // $auth=new Auth();
+        // $auth->logged_in();
+
+        // $auth->is_superadmin();
+    }
+
+    function index()
+    {
+
+        $template=new Template();
+
+        $template->set_html('');
+        $template->set_title('Home');
+        $template->render();
+    }
+
 }

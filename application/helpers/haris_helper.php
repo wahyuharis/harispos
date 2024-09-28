@@ -408,3 +408,11 @@ function in_post($param)
 
     return $return;
 }
+function segment_uri($int)
+{
+    $ci = &get_instance();
+    $val = $ci->uri->segment($int);
+    $val = strtolower($val);
+
+    return $val;
+}

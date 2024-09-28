@@ -23,7 +23,7 @@ if ($segment1 == '' || $segment1 == 'home') {
 <?php
 $menu_open = "";
 $display = 'display: none;';
-if ($segment1 == 'supplier' || $segment1 == 'customer') {
+if ($segment1 == 'home' || $segment1 == 'customer') {
     $menu_open = " menu-is-opening menu-open ";
     $display = 'display: block;';
 }
@@ -40,12 +40,12 @@ if ($segment1 == 'supplier' || $segment1 == 'customer') {
     <ul class="nav nav-treeview" style="<?= $display ?>">
         <?php
         $active = "";
-        if ($segment1 == 'supplier') {
+        if ($segment1 == 'home') {
             $active = ' active ';
         }
         ?>
         <li class="nav-item">
-            <a href="<?= base_url('supplier') ?>" class="nav-link <?= $active ?>">
+            <a href="<?= base_url('home') ?>" class="nav-link <?= $active ?>">
                 <i class="far fa-circle"></i>
                 <p>Supplier</p>
             </a>
