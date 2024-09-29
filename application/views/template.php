@@ -9,6 +9,14 @@
 
     <?php require_once 'template_assets.php' ?>
 
+    <script>
+        function Custom_loading() {
+            JsLoadingOverlay.show({
+                "spinnerIcon": "ball-clip-rotate",
+                "spinnerSize": "2x"
+            });
+        }
+    </script>
 </head>
 
 <body class="hold-transition sidebar-mini pace-primary">
@@ -142,6 +150,9 @@
     <!-- AdminLTE App -->
     <script src="<?= base_url('lte') ?>/dist/js/adminlte.min.js"></script>
     <script>
+        $(document).on('select2:open', () => {
+            document.querySelector('.select2-search__field').focus();
+        });
         $(document).ready(function() {
             $("#side_filter").on('keyup change', function(e) {
                 var filter = $(this).val(),

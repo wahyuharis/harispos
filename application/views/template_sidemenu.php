@@ -18,52 +18,22 @@ if ($segment1 == '' || $segment1 == 'home') {
     </a>
 </li>
 
-
-
 <?php
-$menu_open = "";
-$display = 'display: none;';
-if ($segment1 == 'home' || $segment1 == 'customer') {
-    $menu_open = " menu-is-opening menu-open ";
-    $display = 'display: block;';
+$active = "";
+if ( $segment1 == 'kontak') {
+    $active = ' active ';
 }
 ?>
-
-<li class="nav-item <?= $menu_open ?> ">
-    <a href="#" class="nav-link">
+<li class="nav-item">
+    <a href="<?= base_url('kontak') ?>" class="nav-link <?= $active ?>">
         <i class="far fa-circle"></i>
-        <p>
-            Kontak
-            <i class="fas fa-angle-left right"></i>
-        </p>
+        <p>Kontak</p>
     </a>
-    <ul class="nav nav-treeview" style="<?= $display ?>">
-        <?php
-        $active = "";
-        if ($segment1 == 'home') {
-            $active = ' active ';
-        }
-        ?>
-        <li class="nav-item">
-            <a href="<?= base_url('home') ?>" class="nav-link <?= $active ?>">
-                <i class="far fa-circle"></i>
-                <p>Supplier</p>
-            </a>
-        </li>
-        <?php
-        $active = "";
-        if ($segment1 == 'customer') {
-            $active = ' active ';
-        }
-        ?>
-        <li class="nav-item">
-            <a href="<?= base_url('customer') ?>" class="nav-link <?= $active ?>">
-                <i class="far fa-circle"></i>
-                <p>Customer</p>
-            </a>
-        </li>
-    </ul>
 </li>
+
+
+
+
 
 <?php
 $menu_open = "";

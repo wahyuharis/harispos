@@ -159,12 +159,12 @@ function arr_to_opt($result_array, $index, $label)
 {
     $output = array();
 
-    if($result_array){
+    if ($result_array) {
         foreach ($result_array as $row) {
             $output[$row[$index]] = $row[$label];
         }
     }
-    
+
     return $output;
 }
 
@@ -415,4 +415,11 @@ function segment_uri($int)
     $val = strtolower($val);
 
     return $val;
+}
+
+function label2($label)
+{
+    $res = str_replace("_", " ", $label);
+    $res = ucwords($res);
+    return $res;
 }
