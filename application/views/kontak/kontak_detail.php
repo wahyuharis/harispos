@@ -34,11 +34,8 @@
                         <td><?=$alamat?></td>
                     </tr>
                 </table>
-
-  
             </div>
         </div>
         <a class="btn btn-secondary" href="<?= base_url('kontak') ?>">Kembali</a>
     </div>
 </div>
-<?php require_once 'kontak_edit_script.php' ?>

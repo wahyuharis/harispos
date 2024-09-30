@@ -51,5 +51,5 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'login';
 $route['logout'] = 'Login/logout';
-$route['404_override'] = '';
+$route['404_override'] = 'zpage_404';
 $route['translate_uri_dashes'] = FALSE;

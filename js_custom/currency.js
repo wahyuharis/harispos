@@ -1,4 +1,4 @@
-function curency_to_float(str) {
+function cur2float(str) {
     var myNumeral2 = numeral(str);
 
     value = 0;
@@ -10,34 +10,50 @@ function curency_to_float(str) {
     return parseFloat(value);
 }
 
-function float_to_currency(floatval) {
+function float2cur(floatval) {
     floatval = parseFloat(floatval);
     return numeral(floatval).format("0,0.00");
 }
 
 
-function format() {
+function format_currency() {
     $('.thousand').each(function () {
         num = $(this).val();
-        num = numeral(num).format('0,0.00');
+        if (num.trim().length == 0) {
+            num = "";
+        } else {
+            num = numeral(num).format('0,0.00');
+        }
         $(this).val(num);
     });
 
     $('.thousand').keyup(function () {
         num = $(this).val();
-        num = numeral(num).format();
+        if (num.trim().length == 0) {
+            num = "";
+        } else {
+            num = numeral(num).format();
+        }
         $(this).val(num);
     });
 
     $('.thousand').focusout(function () {
         num = $(this).val();
-        num = numeral(num).format('0,0.00');
+        if (num.trim().length == 0) {
+            num = "";
+        } else {
+            num = numeral(num).format('0,0.00');
+        }
         $(this).val(num);
     });
 
     $('.thousand').focus(function () {
         $(this).select();
     });
+
+}
+
+function format_number() {
 
     $('.number').keypress(function (event) {
         num = $(this).val();

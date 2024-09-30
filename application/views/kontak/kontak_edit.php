@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="id_kota">Kota:</label>
+                        <label for="id_kota">Kota</label>
                         <?= form_dropdown('id_kota', $opt_kota, $id_kota, ' class="form-control" id="id_kota" ') ?>
                     </div>
 

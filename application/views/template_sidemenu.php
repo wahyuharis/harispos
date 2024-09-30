@@ -13,32 +13,32 @@ if ($segment1 == '' || $segment1 == 'home') {
 ?>
 <li class="nav-item">
     <a href="<?= base_url('home') ?>" class="nav-link <?= $active ?>">
-        <i class="far fa-circle"></i>
+        <!-- <i class="far fa-circle"></i> -->
+        <i class="fas fa-home"></i>
         <p>Beranda</p>
     </a>
 </li>
 
 <?php
 $active = "";
-if ( $segment1 == 'kontak') {
+if ($segment1 == 'kontak') {
     $active = ' active ';
 }
 ?>
 <li class="nav-item">
     <a href="<?= base_url('kontak') ?>" class="nav-link <?= $active ?>">
-        <i class="far fa-circle"></i>
+        <!-- <i class="far fa-circle"></i> -->
+        <i class="far fa-address-book"></i>
         <p>Kontak</p>
     </a>
 </li>
 
 
 
-
-
 <?php
 $menu_open = "";
 $display = 'display: none;';
-if (in_array($segment1, ['category', 'item'])) {
+if (in_array($segment1, ['kategori', 'item'])) {
     $menu_open = " menu-is-opening menu-open ";
     $display = 'display: block;';
 }
@@ -46,27 +46,26 @@ if (in_array($segment1, ['category', 'item'])) {
 
 <li class="nav-item <?= $menu_open ?> ">
     <a href="#" class="nav-link">
-        <i class="far fa-circle"></i>
+        <!-- <i class="far fa-circle"></i> -->
+        <i class="fas fa-boxes"></i>
         <p>
-            Item
+            Barang & Jasa
             <i class="fas fa-angle-left right"></i>
         </p>
     </a>
     <ul class="nav nav-treeview" style="<?= $display ?>">
         <?php
         $active = "";
-        if ($segment1 == 'category') {
+        if ($segment1 == 'kategori') {
             $active = ' active ';
         }
         ?>
         <li class="nav-item">
-            <a href="<?= base_url('category') ?>" class="nav-link <?= $active ?>">
+            <a href="<?= base_url('kategori') ?>" class="nav-link <?= $active ?>">
                 <i class="far fa-circle"></i>
-                <p>Category</p>
+                <p>Kategori</p>
             </a>
         </li>
-
-
         <?php
         $active = "";
         if ($segment1 == 'item') {
@@ -75,11 +74,11 @@ if (in_array($segment1, ['category', 'item'])) {
         ?>
         <li class="nav-item">
             <a href="<?= base_url('item') ?>" class="nav-link <?= $active ?>">
-                <i class="far fa-circle"></i>
-                <p>Item</p>
+                <!-- <i class="far fa-circle"></i> -->
+                <i class="fas fa-boxes"></i>
+                <p>Barang & Jasa</p>
             </a>
         </li>
-
     </ul>
 </li>
 
@@ -94,7 +93,8 @@ if ($segment1 == 'purchase') {
 ?>
 <li class="nav-item">
     <a href="<?= base_url('purchase') ?>" class="nav-link <?= $active ?>">
-        <i class="far fa-circle"></i>
+        <!-- <i class="far fa-circle"></i> -->
+        <i class="fas fa-cart-arrow-down"></i>
         <p>Pembelian</p>
     </a>
 </li>
@@ -108,7 +108,8 @@ if ($segment1 == 'sales') {
 ?>
 <li class="nav-item">
     <a href="<?= base_url('sales') ?>" class="nav-link <?= $active ?>">
-        <i class="far fa-circle"></i>
+        <!-- <i class="far fa-circle"></i> -->
+        <i class="fas fa-cash-register"></i>
         <p>Penjualan</p>
     </a>
 </li>
@@ -121,7 +122,8 @@ if ($segment1 == 'stock') {
 ?>
 <li class="nav-item">
     <a href="<?= base_url('stock') ?>" class="nav-link <?= $active ?>">
-        <i class="far fa-circle"></i>
+        <!-- <i class="far fa-circle"></i> -->
+        <i class="fas fa-cubes"></i>
         <p>Stock</p>
     </a>
 </li>

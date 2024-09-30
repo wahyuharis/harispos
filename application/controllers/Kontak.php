@@ -45,7 +45,7 @@ class Kontak extends CI_Controller
             foreach ($row as $key => $val) {
 
                 if ($key == 'action') {
-                    $val = '<div style="width:100px" >';
+                    $val = '<div style="width:150px" >';
                     $val .= '<a href="' . base_url('kontak/edit/' . $row['id_kontak']) . '" class="btn btn-primary btn-sm" >edit</a>';
                     $val .= '<a href="' . base_url('kontak/detail/' . $row['id_kontak']) . '" class="btn btn-success btn-sm" >detail</a>';
                     $val .= '<a href="' . base_url('kontak/delete/' . $row['id_kontak']) . '" class="btn btn-danger btn-sm delete_btn" >delete</a>';
@@ -89,6 +89,7 @@ class Kontak extends CI_Controller
         $contet_data['phone'] = '';
         $contet_data['whatsapp'] = '';
         $contet_data['email'] = '';
+        $contet_data['id_kota'] = '';
         $contet_data['alamat'] = '';
         $contet_data['is_customer'] = '0';
         $contet_data['is_supplier'] = '0';
