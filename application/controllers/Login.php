@@ -10,7 +10,15 @@ class Login extends CI_Controller
 
     function index()
     {
-        $this->load->view('login');
+        $username = $this->session->userdata('username');
+        $email = $this->session->userdata('email');
+        $password = $this->session->userdata('password');
+
+        if ((!empty(trim($username))) && (!empty(trim($password)))) {
+            redirect('home');
+        } else {
+            $this->load->view('login');
+        }
     }
 
     function submit()
@@ -21,7 +29,7 @@ class Login extends CI_Controller
 
         $username = in_post('username');
         $password = in_post('password');
-        $password=md5($password);
+        $password = md5($password);
 
         $where = " (username = " . $this->db->escape($username) . " or email = " . $this->db->escape($username) . " ) 
         and password = " . $this->db->escape($password) . " 

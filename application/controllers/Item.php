@@ -24,12 +24,12 @@ class Item extends CI_Controller
         $data = array();
 
         $this->load->model('Item_model');
+        $this->load->model('Stock_model');
         $item_model = new Item_model();
 
         $sql = $item_model->sql_list();
 
-        $db = $this->db->query($sql);
-        foreach ($db->result_array() as $row) {
+        foreach ($sql['data'] as $row) {
             $buff = array();
             foreach ($row as $key => $val) {
 
@@ -47,6 +47,11 @@ class Item extends CI_Controller
                     $val = "Rp " . format_currency($val);
                 }
 
+                if ($key == 'stock') {
+                    $stock_model = new Stock_model();
+                    $val = $stock_model->stock_akhir($row['id_item']);
+                }
+
                 array_push($buff, $val);
             }
             array_push($data, $buff);
@@ -54,7 +59,10 @@ class Item extends CI_Controller
 
         header_json();
         $res = array(
-            'data' => $data,
+            // 'draw' => 1,
+            "recordsTotal" => intval($sql['totalrows']),
+            "recordsFiltered" => intval($sql['totalrows']),
+            "data" => $data,
         );
         echo json_encode($res);
     }

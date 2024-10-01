@@ -62,7 +62,8 @@ if (in_array($segment1, ['kategori', 'item'])) {
         ?>
         <li class="nav-item">
             <a href="<?= base_url('kategori') ?>" class="nav-link <?= $active ?>">
-                <i class="far fa-circle"></i>
+                <!-- <i class="far fa-circle"></i> -->
+                <i class="fas fa-sitemap"></i>
                 <p>Kategori</p>
             </a>
         </li>
@@ -130,14 +131,15 @@ if ($segment1 == 'stock') {
 
 <?php
 $active = "";
-if ($segment1 == 'rekening') {
+if ($segment1 == 'metode_pembayaran') {
     $active = ' active ';
 }
 ?>
 <li class="nav-item">
-    <a href="<?= base_url('rekening') ?>" class="nav-link <?= $active ?>">
-        <i class="far fa-circle"></i>
-        <p>Rekening</p>
+    <a href="<?= base_url('metode_pembayaran') ?>" class="nav-link <?= $active ?>">
+        <!-- <i class="far fa-circle"></i> -->
+        <i class="fas fa-wallet"></i>
+        <p>Metode Pembayaran</p>
     </a>
 </li>
 
@@ -150,7 +152,8 @@ if ($segment1 == 'cashflow') {
 ?>
 <li class="nav-item">
     <a href="<?= base_url('cashflow') ?>" class="nav-link <?= $active ?>">
-        <i class="far fa-circle"></i>
+        <!-- <i class="far fa-circle"></i> -->
+        <i class="fas fa-book"></i>
         <p>Register Kas</p>
     </a>
 </li>

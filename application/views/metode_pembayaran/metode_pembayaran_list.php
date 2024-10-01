@@ -1,6 +1,6 @@
 <div class="card">
     <div class="card-body">
-        <a class="btn btn-primary" href="<?= base_url('item/add') ?>">Add</a>
+        <a class="btn btn-primary" href="<?=base_url('metode_pembayaran/add')?>" >Add</a>
         <br>
         <br>
         <table id="dtt_tables" class="table table-striped">
@@ -8,14 +8,9 @@
                 <tr>
                     <th>id</th>
                     <th>#</th>
-                    <th><?= label2("barcode") ?></th>
-                    <th><?= label2("nama_item") ?></th>
-                    <th><?= label2("nama_kategori") ?></th>
-                    <th><?= label2("harga_beli") ?></th>
-                    <th><?= label2("harga_jual") ?></th>
-                    <th><?= label2("stock") ?></th>
-                    <th><?= label2("satuan") ?></th>
-
+                    <th><?=label2("nama_metode_pembayaran")?></th>
+                    <th><?=label2("bank")?></th>
+                    <th><?=label2("no_rekening")?></th>
                 </tr>
             </thead>
             <tbody>
@@ -33,8 +28,7 @@
             }],
             "ordering": false,
             "processing": true,
-            "serverSide": true,
-            "ajax": '<?= base_url('item/datatables') ?>',
+            "ajax": '<?=base_url('metode_pembayaran/datatables')?>',
             "buttons": ["copy", "csv", "excel", "pdf"],
             "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
                 "<'row'<'col-sm-12'tr>>" +
@@ -65,7 +59,7 @@
                         if (result) {
                             $.get(delete_url, function(data, status) {
                                 table.ajax.reload(null, false);
-                                toastr.success("Data Telah dihapus", "Info");
+                                toastr.success("Data Telah dihapus","Info");
                             });
                         }
                     }
