@@ -19,26 +19,14 @@ if ($segment1 == '' || $segment1 == 'home') {
     </a>
 </li>
 
-<?php
-$active = "";
-if ($segment1 == 'kontak') {
-    $active = ' active ';
-}
-?>
-<li class="nav-item">
-    <a href="<?= base_url('kontak') ?>" class="nav-link <?= $active ?>">
-        <!-- <i class="far fa-circle"></i> -->
-        <i class="far fa-address-book"></i>
-        <p>Kontak</p>
-    </a>
-</li>
+
 
 
 
 <?php
 $menu_open = "";
 $display = 'display: none;';
-if (in_array($segment1, ['kategori', 'item'])) {
+if (in_array($segment1, ['kontak','kategori', 'item', 'metode_pembayaran'])) {
     $menu_open = " menu-is-opening menu-open ";
     $display = 'display: block;';
 }
@@ -46,14 +34,27 @@ if (in_array($segment1, ['kategori', 'item'])) {
 
 <li class="nav-item <?= $menu_open ?> ">
     <a href="#" class="nav-link">
-        <!-- <i class="far fa-circle"></i> -->
-        <i class="fas fa-boxes"></i>
+        <i class="far fa-folder"></i>
         <p>
-            Barang & Jasa
+            Master
             <i class="fas fa-angle-left right"></i>
         </p>
     </a>
     <ul class="nav nav-treeview" style="<?= $display ?>">
+        <?php
+        $active = "";
+        if ($segment1 == 'kontak') {
+            $active = ' active ';
+        }
+        ?>
+        <li class="nav-item">
+            <a href="<?= base_url('kontak') ?>" class="nav-link <?= $active ?>">
+                <!-- <i class="far fa-circle"></i> -->
+                <i class="far fa-address-book"></i>
+                <p>Kontak</p>
+            </a>
+        </li>
+
         <?php
         $active = "";
         if ($segment1 == 'kategori') {
@@ -64,7 +65,7 @@ if (in_array($segment1, ['kategori', 'item'])) {
             <a href="<?= base_url('kategori') ?>" class="nav-link <?= $active ?>">
                 <!-- <i class="far fa-circle"></i> -->
                 <i class="fas fa-sitemap"></i>
-                <p>Kategori</p>
+                <p>Kategori Barang & Jasa</p>
             </a>
         </li>
         <?php
@@ -80,6 +81,19 @@ if (in_array($segment1, ['kategori', 'item'])) {
                 <p>Barang & Jasa</p>
             </a>
         </li>
+
+        <?php
+        $active = "";
+        if ($segment1 == 'metode_pembayaran') {
+            $active = ' active ';
+        }
+        ?>
+        <li class="nav-item">
+            <a href="<?= base_url('metode_pembayaran') ?>" class="nav-link <?= $active ?>">
+                <i class="fas fa-wallet"></i>
+                <p>Metode Pembayaran</p>
+            </a>
+        </li>
     </ul>
 </li>
 
@@ -88,12 +102,12 @@ if (in_array($segment1, ['kategori', 'item'])) {
 
 <?php
 $active = "";
-if ($segment1 == 'purchase') {
+if ($segment1 == 'pembelian') {
     $active = ' active ';
 }
 ?>
 <li class="nav-item">
-    <a href="<?= base_url('purchase') ?>" class="nav-link <?= $active ?>">
+    <a href="<?= base_url('pembelian') ?>" class="nav-link <?= $active ?>">
         <!-- <i class="far fa-circle"></i> -->
         <i class="fas fa-cart-arrow-down"></i>
         <p>Pembelian</p>
@@ -131,29 +145,15 @@ if ($segment1 == 'stock') {
 
 <?php
 $active = "";
-if ($segment1 == 'metode_pembayaran') {
+if ($segment1 == 'keuangan') {
     $active = ' active ';
 }
 ?>
 <li class="nav-item">
-    <a href="<?= base_url('metode_pembayaran') ?>" class="nav-link <?= $active ?>">
+    <a href="<?= base_url('keuangan') ?>" class="nav-link <?= $active ?>">
         <!-- <i class="far fa-circle"></i> -->
-        <i class="fas fa-wallet"></i>
-        <p>Metode Pembayaran</p>
-    </a>
-</li>
-
-
-<?php
-$active = "";
-if ($segment1 == 'cashflow') {
-    $active = ' active ';
-}
-?>
-<li class="nav-item">
-    <a href="<?= base_url('cashflow') ?>" class="nav-link <?= $active ?>">
-        <!-- <i class="far fa-circle"></i> -->
-        <i class="fas fa-book"></i>
-        <p>Register Kas</p>
+        <!-- <i class="fas fa-book"></i> -->
+        <i class="fas fa-money-bill"></i>
+        <p>Keuangan</p>
     </a>
 </li>
