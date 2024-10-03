@@ -67,6 +67,59 @@ class Item extends CI_Controller
         echo json_encode($res);
     }
 
+    function item_detail($id_item){
+        $this->load->model('Item_model');
+        $item_model=new Item_model();
+        // $item_detail=
+        $item_detail=$item_model->sql_item_detail($id_item);
+        header_json();
+        echo json_encode($item_detail);
+    }
+
+    function item_modal()
+    {
+        $data = array();
+
+        $this->load->model('Item_model');
+        $this->load->model('Stock_model');
+        $item_model = new Item_model();
+
+        $sql = $item_model->sql_item_modal();
+
+        foreach ($sql['data'] as $row) {
+            $buff = array();
+            foreach ($row as $key => $val) {
+
+                if ($key == 'action') {
+                    $val = '<span id_item="' . $row['id_item'] . '" class="btn btn-primary btn-sm pilih_item">pilih</span>';
+                }
+                if ($key == 'harga_beli') {
+                    $val = "Rp " . format_currency($val);
+                }
+                if ($key == 'harga_jual') {
+                    $val = "Rp " . format_currency($val);
+                }
+
+                if ($key == 'stock') {
+                    $stock_model = new Stock_model();
+                    $val = $stock_model->stock_akhir($row['id_item']);
+                }
+
+                array_push($buff, $val);
+            }
+            array_push($data, $buff);
+        }
+
+        header_json();
+        $res = array(
+            // 'draw' => 1,
+            "recordsTotal" => intval($sql['totalrows']),
+            "recordsFiltered" => intval($sql['totalrows']),
+            "data" => $data,
+        );
+        echo json_encode($res);
+    }
+
     function add()
     {
         $this->edit('');

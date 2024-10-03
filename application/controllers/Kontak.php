@@ -37,6 +37,7 @@ class Kontak extends CI_Controller
             is_supplier,
             is_karyawan
             FROM m_kontak
+            where m_kontak.deleted = '0'
             ORDER BY m_kontak.id_kontak desc";
 
         $db = $this->db->query($sql);
@@ -202,7 +203,6 @@ class Kontak extends CI_Controller
 
         $contet_data = $db->row_array();
 
-        // print_r2($contet_data);
 
         $template = new Template();
         $template->set_content('kontak/kontak_detail', $contet_data);
@@ -219,6 +219,40 @@ class Kontak extends CI_Controller
     function delete($id)
     {
         $this->db->where('id_kontak', $id);
-        $this->db->delete('m_kontak');
+        $this->db->set(array('deleted' => 1));
+        $this->db->update('m_kontak');
+    }
+
+    function select2()
+    {
+        $res = array();
+
+        $search = $this->db->escape_str($this->input->get('search'));
+
+        $sql = "SELECT 
+        id_kontak as `id`,
+            m_kontak.nama_kontak as `text`
+            FROM m_kontak
+            where m_kontak.deleted = '0' and m_kontak.is_supplier='1' and (
+                m_kontak.nama_kontak like '%" . $search . "%'
+                or m_kontak.phone like '%" . $search . "%'
+                or  m_kontak.whatsapp  like '%" . $search . "%'
+                or m_kontak.email like '%" . $search . "%'
+            )
+            ORDER BY m_kontak.id_kontak desc
+            limit 10
+            ";
+        $db = $this->db->query($sql);
+
+        // print_r2($db->result_array());
+
+        $res = array(
+            'results' => $db->result_array(),
+            'pagination' => array(
+                'more' => false
+            )
+        );
+        header_json();
+        echo json_encode($res);
     }
 }

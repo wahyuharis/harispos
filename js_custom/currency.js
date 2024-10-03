@@ -1,4 +1,4 @@
-function cur2float(str) {
+function curency_to_float(str) {
     var myNumeral2 = numeral(str);
 
     value = 0;
@@ -10,7 +10,7 @@ function cur2float(str) {
     return parseFloat(value);
 }
 
-function float2cur(floatval) {
+function float_to_currency(floatval) {
     floatval = parseFloat(floatval);
     return numeral(floatval).format("0,0.00");
 }
