@@ -97,4 +97,25 @@ class Item_model extends CI_Model
 
         return $item;
     }
+    function sql_item_detail_barcode($barcode)
+    {
+        $this->load->model('Stock_model');
+        
+
+        $sql = "SELECT * FROM m_item
+            LEFT JOIN m_kategori ON m_kategori.id_kategori=m_item.id_kategori
+            WHERE m_item.barcode=" . $this->db->escape($barcode) . " ";
+
+        $db = $this->db->query($sql);
+
+        // print_r2($db->row_array());
+
+        $stock_model = new Stock_model();
+        $stock = $stock_model->stock_akhir($db->row_array()['id_item']);
+
+        $item = $db->row_array();
+        $item['stock'] = $stock;
+
+        return $item;
+    }
 }

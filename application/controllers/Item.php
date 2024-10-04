@@ -76,6 +76,15 @@ class Item extends CI_Controller
         echo json_encode($item_detail);
     }
 
+    function item_detail_barcode($barcode){
+        $this->load->model('Item_model');
+        $item_model=new Item_model();
+        // $item_detail=
+        $item_detail=$item_model->sql_item_detail_barcode($barcode);
+        header_json();
+        echo json_encode($item_detail);
+    }
+
     function item_modal()
     {
         $data = array();

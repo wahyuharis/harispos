@@ -1,3 +1,10 @@
+<style>
+    .disc_select {
+        background-color: #e9ecef;
+        border: 1px solid #ced4da;
+        color: #495057;
+    }
+</style>
 <div id="pembelian_add">
     <div class="card">
         <div class="card-body">
@@ -45,13 +52,15 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-4">
-                    <div class="input-group">
-                        <input id="barcode" type="text" class="form-control" placeholder="Kode Barcode">
-                        <div class="input-group-append" id="button-addon4">
-                            <button id="fokus2barcode" class="btn btn-outline-secondary" type="button"><i class="fas fa-barcode"></i></button>
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#pick_item_modal" type="button"><i class="fas fa-boxes"></i> Pilih Barang</button>
+                    <form id="form_barcode">
+                        <div class="input-group">
+                            <input id="barcode" type="text" class="form-control" placeholder="Kode Barcode">
+                            <div class="input-group-append" id="button-addon4">
+                                <button id="fokus2barcode" class="btn btn-outline-secondary" type="button"><i class="fas fa-barcode"></i></button>
+                                <button class="btn btn-primary" data-toggle="modal" data-target="#pick_item_modal" type="button"><i class="fas fa-boxes"></i> Pilih Barang</button>
+                            </div>
                         </div>
-                    </div>
+                    </form>
                 </div>
                 <div class="col-md-4"></div>
                 <div class="col-md-4"></div>
@@ -64,11 +73,11 @@
                             <tr>
                                 <th>#</th>
                                 <th>Barcode</th>
-                                <th style="width: 30%;">Nama Item</th>
+                                <th style="width: 20%;">Nama Item</th>
                                 <th>Harga</th>
                                 <th>Qty</th>
-                                <th>Disc(%)</th>
-                                <th>Sub</th>
+                                <th>Disc</th>
+                                <th style="width: 15%;">Sub</th>
                             </tr>
                         </thead>
                         <tbody data-bind="foreach:item_list">
@@ -76,10 +85,35 @@
                                 <td> <span data-bind="click: $root.delete_item_list" class="btn btn-danger btn-sm">delete</span> </td>
                                 <td> <span data-bind="text:barcode"></span> </td>
                                 <td> <span data-bind="text:nama_item"></span> </td>
-                                <td> <input data-bind="value:harga_beli" type="text" style="text-align:end;width: 150px;" class="thousand form-control"> </td>
-                                <td> <input data-bind="value:qty" type="text" style="text-align:end;width: 100px;" class="number form-control"> </td>
-                                <td> <input data-bind="value:disc" type="text" style="text-align:end;width: 100px;" class="number form-control"> </td>
-                                <td data-bind="text:sub" style="text-align: end;"></td>
+                                <td>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">Rp.</span>
+                                        </div>
+                                        <input data-bind="value:harga_beli" type="text" style="text-align:end;" class="thousand form-control">
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="input-group">
+                                        <input data-bind="value:qty" type="text" style="text-align:end;" class="number form-control">
+                                        <div class="input-group-append">
+                                            <span data-bind="text:satuan" class="input-group-text"></span>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+
+                                    <div class="input-group">
+                                        <input data-bind="value:disc" type="text" style="text-align:end;" class="number form-control">
+                                        <select data-bind="value:disc_type" class="input-group-addon disc_select">
+                                            <option value="persen">%</option>
+                                            <option value="rp">Rp</option>
+                                        </select>
+                                    </div>
+                                </td>
+                                <td style="text-align: end;">Rp.
+                                    <span data-bind="text:sub"></span>
+                                </td>
                             </tr>
                         </tbody>
                     </table>
@@ -91,16 +125,31 @@
                 <div class="col-md-7">
                     <table class="table table-striped">
                         <tr>
+                            <th>Biaya Lain</th>
+                            <th><input type="text" data-bind="value:nama_biaya" class="form-control" placeholder="keterangan biaya"></th>
+                            <th>:</th>
+                            <th>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Rp.</span>
+                                    </div>
+                                    <input type="text" data-bind="value:jumlah_biaya" class="form-control thousand" style="text-align: end;">
+                                </div>
+                            </th>
+                        </tr>
+                        <tr>
                             <th>Total</th>
                             <th></th>
                             <th>:</th>
-                            <th style="text-align: end;" data-bind="text:total"> </th>
+                            <th style="text-align: end;">Rp.
+                                <span data-bind="text:total"></span>
+                            </th>
                         </tr>
 
                         <tr class="cash_payment">
                             <th>Bayar</th>
                             <th style="width: 200px;">
-                                <select class="form-control" id="id_rekening_dp"
+                                <select class="form-control" id="id_rekening_cash"
                                     data-bind="options: opt_metode_pembayaran,
                                     optionsText: 'nama_metode_pembayaran',
                                     optionsValue: 'id_metode_pembayaran',
@@ -109,13 +158,22 @@
                                 </select>
                             </th>
                             <th> :</th>
-                            <th> <input type="text" data-bind="textInput:bayar" class="form-control thousand" style="text-align: end;" > </th>
+                            <th>
+                                <div class="input-group">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text">Rp.</span>
+                                    </div>
+                                    <input type="text" data-bind="textInput:bayar" class="form-control thousand" style="text-align: end;">
+                                </div>
+                            </th>
                         </tr>
                         <tr class="cash_payment">
                             <th>Kembalian</th>
                             <th></th>
                             <th>:</th>
-                            <th data-bind="text:kembalian"  style="text-align: end;" ></th>
+                            <th style="text-align: end;"> Rp.
+                                <span data-bind="text:kembalian"></span>
+                            </th>
                         </tr>
 
 
@@ -131,13 +189,13 @@
                                 </select>
                             </th>
                             <th> :</th>
-                            <th> <input type="text" class="form-control thousand" data-bind="textInput:uang_muka" style="text-align: end;" > </th>
+                            <th> <input type="text" class="form-control thousand" data-bind="textInput:uang_muka" style="text-align: end;"> </th>
                         </tr>
                         <tr class="down_payment">
                             <th>Sisa Tagihan</th>
                             <th></th>
                             <th>:</th>
-                            <th data-bind="text:sisa_tagihan" style="text-align: end;" ></th>
+                            <th data-bind="text:sisa_tagihan" style="text-align: end;"></th>
                         </tr>
 
 

@@ -10,11 +10,16 @@
         self.satuan = ko.observable(satuan);
         self.disc = ko.observable(disc);
         self.stock = ko.observable(stock);
+        self.disc_type = ko.observable('persen');
 
         self.sub = ko.computed(function() {
             var total = 0;
             total = curency_to_float(self.qty()) * curency_to_float(self.harga_beli());
-            total = total - (total * (curency_to_float(self.disc()) / 100));
+            if (self.disc_type() == 'persen') {
+                total = total - (total * (curency_to_float(self.disc()) / 100));
+            }else{
+                total = total - curency_to_float(self.disc());
+            }
             total = float_to_currency(total);
             return total;
         });
@@ -36,6 +41,8 @@
         self.id_rekening_cash = ko.observable('');
 
         self.item_list = ko.observableArray([]);
+        self.nama_biaya = ko.observable('');
+        self.jumlah_biaya = ko.observable('');
         self.bayar = ko.observable('');
         self.uang_muka = ko.observable('');
 
@@ -74,6 +81,47 @@
             }
         }
 
+        self.add_item_barcode = function(barcode) {
+            Custom_loading();
+            $.ajax({
+                url: '<?= base_url('/item/item_detail_barcode') ?>/' + barcode,
+                type: 'get',
+                success: function(data) {
+                    // console.log(data);
+
+                    id_item = data.id_item;
+                    add = true;
+                    for (var i = 0; i < self.item_list().length; i++) {
+                        id_item2 = self.item_list()[i].id_item();
+                        if (id_item == id_item2) {
+                            add = false;
+                            last_qty = curency_to_float(self.item_list()[i].qty());
+                            last_qty = last_qty + 1;
+                            last_qty = float_to_currency(last_qty);
+                            self.item_list()[i].qty(last_qty)
+                        }
+                    }
+                    if (add) {
+                        // function add_item(id_item, barcode, nama_item, harga_beli, qty, satuan, stock, disc) {                       
+                        self.item_list.push(new add_item(data.id_item, data.barcode, data.nama_item, data.harga_beli, '1', data.satuan, data.stock, '0'));
+
+                    } else {
+                        // toastr["error"]("Maaf Item Sudah Ada !");
+                    }
+                    $('#pick_item_modal').modal('hide');
+                    JsLoadingOverlay.hide();
+                    $('#barcode').val('');
+
+                },
+                error: function(err) {
+                    alert("terjadi kesalahan");
+                    JsLoadingOverlay.hide();
+                }
+            });
+
+        }
+
+
         self.delete_item_list = function(row) {
             self.item_list.remove(row);
         }
@@ -84,6 +132,8 @@
                 sub1 = self.item_list()[i].sub();
                 total = total + curency_to_float(sub1);
             }
+
+            total=total + curency_to_float(self.jumlah_biaya());
 
             total = float_to_currency(total);
             return total;
@@ -100,7 +150,7 @@
             return kembalian;
         });
 
-        self.sisa_tagihan =  ko.computed(function() {
+        self.sisa_tagihan = ko.computed(function() {
             var sisa_tagihan = 0;
             sisa_tagihan = curency_to_float(self.total()) - curency_to_float(self.uang_muka());
             sisa_tagihan = float_to_currency(sisa_tagihan);
@@ -159,6 +209,14 @@
                     });
                 }
             });
+        });
+
+        $('#form_barcode').submit(function(e) {
+            e.preventDefault();
+            val = $('#barcode').val();
+
+            var context = ko.contextFor(document.getElementById("pembelian_add"));
+            context.$data.add_item_barcode(val);
         });
 
         $('#pick_item_modal').on('hidden.bs.modal', function(event) {
