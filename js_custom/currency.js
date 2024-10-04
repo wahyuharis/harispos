@@ -64,13 +64,15 @@ function format_number() {
 
     $('.number').focusout(function () {
         num = $(this).val();
-        num = numeral(num).format('0,0.00');
+        // num = numeral(num).format();
+        num = parseFloat(num);
         $(this).val(num);
     });
 
     $('.number').each(function () {
         num = $(this).val();
-        num = numeral(num).format();
+        // num = numeral(num).format();
+        num = parseFloat(num);
         $(this).val(num);
     });
 

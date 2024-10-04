@@ -26,7 +26,7 @@
                 <div class="col-md-4">
                     <div class="form-group">
                         <label for="tanggal">Tanggal</label>
-                        <input type="text" class="form-control" id="tanggal" data-bind="value:tanggal">
+                        <input type="text" class="form-control" id="tanggal" style="background-color: #fff;" readonly data-bind="value:tanggal">
                     </div>
 
                     <div class="form-group">
@@ -148,13 +148,13 @@
 
                         <tr class="cash_payment">
                             <th>Bayar</th>
-                            <th style="width: 200px;">
-                                <select class="form-control" id="id_rekening_cash"
+                            <th>
+                                <select class="form-control" id="id_metode_pembayaran_cash"
                                     data-bind="options: opt_metode_pembayaran,
                                     optionsText: 'nama_metode_pembayaran',
                                     optionsValue: 'id_metode_pembayaran',
-                                    value: id_rekening_cash,
-                                    optionsCaption: 'Pilih rekening..'">
+                                    value: id_metode_pembayaran_cash,
+                                    optionsCaption: 'Pilih Metode Pembayaran..'">
                                 </select>
                             </th>
                             <th> :</th>
@@ -179,13 +179,13 @@
 
                         <tr class="down_payment">
                             <th>Uang muka</th>
-                            <th style="width: 200px;">
-                                <select class="form-control" id="id_rekening_dp"
+                            <th>
+                                <select class="form-control" id="id_metode_pembayaran_dp"
                                     data-bind="options: opt_metode_pembayaran,
                                     optionsText: 'nama_metode_pembayaran',
                                     optionsValue: 'id_metode_pembayaran',
-                                    value: id_rekening_dp,
-                                    optionsCaption: 'Pilih rekening..'">
+                                    value: id_metode_pembayaran_dp,
+                                    optionsCaption: 'Pilih Metode Pembayaran..'">
                                 </select>
                             </th>
                             <th> :</th>

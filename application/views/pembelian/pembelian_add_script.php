@@ -17,7 +17,7 @@
             total = curency_to_float(self.qty()) * curency_to_float(self.harga_beli());
             if (self.disc_type() == 'persen') {
                 total = total - (total * (curency_to_float(self.disc()) / 100));
-            }else{
+            } else {
                 total = total - curency_to_float(self.disc());
             }
             total = float_to_currency(total);
@@ -37,8 +37,8 @@
         // 
         self.opt_metode_pembayaran = ko.observableArray(<?= json_encode($opt_metode_pembayaran) ?>);
 
-        self.id_rekening_dp = ko.observable('');
-        self.id_rekening_cash = ko.observable('');
+        self.id_metode_pembayaran_dp = ko.observable('');
+        self.id_metode_pembayaran_cash = ko.observable('');
 
         self.item_list = ko.observableArray([]);
         self.nama_biaya = ko.observable('');
@@ -133,7 +133,7 @@
                 total = total + curency_to_float(sub1);
             }
 
-            total=total + curency_to_float(self.jumlah_biaya());
+            total = total + curency_to_float(self.jumlah_biaya());
 
             total = float_to_currency(total);
             return total;
@@ -198,6 +198,11 @@
                 "processing": true,
                 "serverSide": true,
                 "ordering": false,
+                pageLength: 5,
+                lengthMenu: [
+                    [5, 10, 20],
+                    [5, 10, 20]
+                ],
                 ajax: '<?= base_url('item/item_modal') ?>',
                 "drawCallback": function(settings) {
                     $('.pilih_item').click(function() {
@@ -239,7 +244,7 @@
                 {
                     if (data.success) {
                         insert_id = data.data.insert_id;
-                        window.location = '<?= base_url('pembelian/view/') ?>/' + insert_id;
+                        // window.location = '<?= base_url('pembelian/view/') ?>/' + insert_id;
                         console.log(data);
                     } else {
                         toastr.error(data.message);
