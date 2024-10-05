@@ -72,18 +72,18 @@
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Barcode</th>
-                                <th style="width: 20%;">Nama Item</th>
-                                <th>Harga</th>
-                                <th>Qty</th>
-                                <th>Disc</th>
-                                <th style="width: 15%;">Sub</th>
+                                <!-- <th>Barcode</th> -->
+                                <th>Nama Item</th>
+                                <th style="width: 200px;"> Harga</th>
+                                <th style="width: 150px;">Qty</th>
+                                <th style="width: 200px;">Disc</th>
+                                <th style="width: 200px;">Sub</th>
                             </tr>
                         </thead>
                         <tbody data-bind="foreach:item_list">
                             <tr>
                                 <td> <span data-bind="click: $root.delete_item_list" class="btn btn-danger btn-sm">delete</span> </td>
-                                <td> <span data-bind="text:barcode"></span> </td>
+                                <!-- <td> <span data-bind="text:barcode"></span> </td> -->
                                 <td> <span data-bind="text:nama_item"></span> </td>
                                 <td>
                                     <div class="input-group">
@@ -125,10 +125,10 @@
                 <div class="col-md-7">
                     <table class="table table-striped">
                         <tr>
-                            <th>Biaya Lain</th>
-                            <th><input type="text" data-bind="value:nama_biaya" class="form-control" placeholder="keterangan biaya"></th>
-                            <th>:</th>
-                            <th>
+                            <th style="width: 150px;">Biaya Lain</th>
+                            <th style="width: 230px;"><input type="text" data-bind="value:nama_biaya" class="form-control" placeholder="keterangan biaya"></th>
+                            <th style="width: 20px;">:</th>
+                            <th  style="width: 200px;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Rp.</span>

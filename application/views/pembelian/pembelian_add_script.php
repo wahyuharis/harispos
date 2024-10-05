@@ -97,7 +97,7 @@
                             add = false;
                             last_qty = curency_to_float(self.item_list()[i].qty());
                             last_qty = last_qty + 1;
-                            last_qty = float_to_currency(last_qty);
+                            // last_qty = float_to_currency(last_qty);
                             self.item_list()[i].qty(last_qty)
                         }
                     }
@@ -108,14 +108,16 @@
                     } else {
                         // toastr["error"]("Maaf Item Sudah Ada !");
                     }
-                    $('#pick_item_modal').modal('hide');
                     JsLoadingOverlay.hide();
                     $('#barcode').val('');
+                    $('#barcode').focus();
 
                 },
                 error: function(err) {
                     alert("terjadi kesalahan");
                     JsLoadingOverlay.hide();
+                    $('#barcode').val('');
+                    $('#barcode').focus();
                 }
             });
 
@@ -222,6 +224,7 @@
 
             var context = ko.contextFor(document.getElementById("pembelian_add"));
             context.$data.add_item_barcode(val);
+            
         });
 
         $('#pick_item_modal').on('hidden.bs.modal', function(event) {
@@ -244,7 +247,7 @@
                 {
                     if (data.success) {
                         insert_id = data.data.insert_id;
-                        // window.location = '<?= base_url('pembelian/view/') ?>/' + insert_id;
+                        window.location = '<?= base_url('pembelian/view/') ?>' + insert_id;
                         console.log(data);
                     } else {
                         toastr.error(data.message);

@@ -10,7 +10,19 @@ class Pembelian extends CI_Controller
         $auth->logged_in();
     }
 
-    function index() {}
+    function index() {
+        $template = new Template();
+
+        $template->set_content('pembelian/pembelian_list', []);
+        $template->set_title('Pembelian');
+        $template->render();
+    }
+
+    function datatables()
+    {
+        
+
+    }
 
     function add()
     {
@@ -37,7 +49,6 @@ class Pembelian extends CI_Controller
         $ko_output_str = in_post('ko_output');
         $ko_output = json_decode($ko_output_str, true);
 
-        // print_r2($ko_output);
 
         $this->db->where('kode_pembelian', trim($ko_output['kode_pembelian']));
         $this->db->from('pembelian');
@@ -87,22 +98,109 @@ class Pembelian extends CI_Controller
             }
         } else {
             // uang_muka
-            if (floatval2($ko_output['uang_muka']) < 1) {
+            // if (floatval2($ko_output['uang_muka']) < 1) {
+            //     $success = false;
+            //     $message .= "<p>Jumlah Uang Muka Masih Kosong</p>";
+            // }
+            if (floatval2($ko_output['uang_muka']) > floatval2($ko_output['total'])) {
                 $success = false;
-                $message .= "<p>Jumlah Uang Muka Masih Kosong</p>";
+                $message .= "<p>Uang Muka melebihi Total</p>";
             }
-            if (!isset($ko_output['id_metode_pembayaran_dp'])) {
-                $success = false;
-                $message .= "<p>Pilih Metode Bayar</p>";
+            if (floatval2($ko_output['uang_muka']) > 0) {
+                if (!isset($ko_output['id_metode_pembayaran_dp'])) {
+                    $success = false;
+                    $message .= "<p>Pilih Metode Bayar</p>";
+                }
             }
+        }
+        if (floatval2($ko_output['jumlah_biaya']) > 0 && strlen(trim($ko_output['nama_biaya'])) < 1) {
+            $success = false;
+            $message .= "<p>Beri Keterangan Biaya</p>";
         }
 
         if ($success) {
-            // $tanggal=waktu_dmy_to_ymd($ko_output['tanggal'])." ".date('H:i:s');
-            // if(isset($ko_output['kode_pembelian'])){
-            //     $insert['kode_pembelian']=$ko_output['kode_pembelian'];
-            // }
-            // $insert['tanggal']=$tanggal;
+            $this->db->trans_start(); # Starting Transaction
+            $this->db->trans_strict(FALSE); # See Note 01. If you wish, you can remove as well 
+
+            $tanggal = waktu_dmy_to_ymd($ko_output['tanggal']) . " " . date('H:i:s');
+            if (strlen($ko_output['kode_pembelian']) > 0) {
+                $insert['kode_pembelian'] = $ko_output['kode_pembelian'];
+            }
+            $insert['tanggal'] = $tanggal;
+            if (isset($ko_output['id_kontak'])) {
+                $insert['id_kontak'] = $ko_output['id_kontak'];
+            }
+            $insert['total'] = floatval2($ko_output['total']);
+            $insert['keterangan'] = $ko_output['keterangan'];
+
+            $this->db->insert('pembelian', $insert);
+            $insert_id = $this->db->insert_id();
+
+            if (strlen($ko_output['kode_pembelian']) < 1) {
+                $kode_pembelian = "FB" . str_pad($insert_id, 5, "0", STR_PAD_LEFT);
+                $this->db->where('id_pembelian', $insert_id);
+                $this->db->update('pembelian', array('kode_pembelian' => $kode_pembelian));
+            }
+
+            $this->load->model('Stock_model');
+            $stock = new Stock_model();
+
+            foreach ($ko_output['item_list'] as $row2) {
+
+                $insert2['id_pembelian'] = $insert_id;
+                $insert2['id_item'] = $row2['id_item'];
+                $insert2['qty'] = floatval2($row2['qty']);
+                $insert2['harga'] = floatval2($row2['harga_beli']);
+
+                $insert2['disc_persen'] = 0;
+                $insert2['disc_rp'] = 0;
+
+                if ($row2['disc_type'] == 'persen') {
+                    $insert2['disc_persen'] = $row2['disc'];
+                } else {
+                    $insert2['disc_rp'] = $row2['disc'];
+                }
+                $insert2['sub'] = floatval2($row2['sub']);
+
+                $this->db->insert('pembelian_detail', $insert2);
+                $stock->stock_in($tanggal, $insert2['id_item'], $insert2['qty'], $insert2['harga']);
+            }
+
+            if (floatval2($ko_output['jumlah_biaya']) > 0) {
+                $insert3['id_pembelian'] = $insert_id;
+                $insert3['nama_biaya'] = $ko_output['nama_biaya'];
+                $insert3['jumlah_biaya'] = floatval2($ko_output['jumlah_biaya']);
+                $this->db->insert('pembelian_biaya', $insert3);
+            }
+
+
+            if (!$ko_output['is_hutang']) {
+                $insert4['tanggal'] = $tanggal;
+                $insert4['tabel'] = 'pembelian';
+                $insert4['id_trans'] = $insert_id;
+                $insert4['id_metode_pembayaran'] = $ko_output['id_metode_pembayaran_cash'];
+                $insert4['total_trans'] = floatval2($ko_output['total']);
+                $this->db->insert('keuangan', $insert4);
+            } else {
+                if (floatval2($ko_output['uang_muka']) > 0) {
+                    $insert4['tanggal'] = $tanggal;
+                    $insert4['tabel'] = 'pembelian';
+                    $insert4['id_trans'] = $insert_id;
+                    $insert4['id_metode_pembayaran'] = $ko_output['id_metode_pembayaran_dp'];
+                    $insert4['total_trans'] = floatval2($ko_output['uang_muka']);
+                    $this->db->insert('keuangan', $insert4);
+                }
+            }
+
+            $data['insert_id'] = $insert_id;
+
+
+            $this->db->trans_complete();
+            if ($this->db->trans_status() === FALSE) {
+                $this->db->trans_rollback();
+            } else {
+                $this->db->trans_commit();
+            }
         }
 
         $res = array(

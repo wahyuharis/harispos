@@ -229,10 +229,9 @@ class Kontak extends CI_Controller
 
         $search = $this->db->escape_str($this->input->get('search'));
 
-        $sql = "SELECT 
-        id_kontak as `id`,
-            m_kontak.nama_kontak as `text`
+        $sql = "SELECT * 
             FROM m_kontak
+            LEFT JOIN _lok_regencies ON _lok_regencies.id=m_kontak.id_kota
             where m_kontak.deleted = '0' and m_kontak.is_supplier='1' and (
                 m_kontak.nama_kontak like '%" . $search . "%'
                 or m_kontak.phone like '%" . $search . "%'
@@ -245,9 +244,17 @@ class Kontak extends CI_Controller
         $db = $this->db->query($sql);
 
         // print_r2($db->result_array());
+        $result = array();
+        foreach ($db->result_array() as $row) {
+            $buff=array(
+                'id'=>$row['id_kontak'],
+                'text'=>$row['nama_kontak']." (".$row['nama_kota'].")"
+            );
+            array_push($result,$buff);
+        }
 
         $res = array(
-            'results' => $db->result_array(),
+            'results' => $result,
             'pagination' => array(
                 'more' => false
             )
