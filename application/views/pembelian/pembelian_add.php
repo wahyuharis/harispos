@@ -128,7 +128,7 @@
                             <th style="width: 150px;">Biaya Lain</th>
                             <th style="width: 230px;"><input type="text" data-bind="value:nama_biaya" class="form-control" placeholder="keterangan biaya"></th>
                             <th style="width: 20px;">:</th>
-                            <th  style="width: 200px;">
+                            <th style="width: 200px;">
                                 <div class="input-group">
                                     <div class="input-group-prepend">
                                         <span class="input-group-text">Rp.</span>
@@ -204,9 +204,12 @@
             </div>
 
             <form id="form_1">
-                <textarea name="ko_output" class="form-control" data-bind="value:ko.toJSON($root)"></textarea>
-                <button class="btn btn-primary" type="submit">Save</button>
-                <a class="btn btn-secondary" href="<?= base_url('pembelian') ?>">Kembali</a>
+                <textarea name="ko_output" class="form-control d-none" data-bind="value:ko.toJSON($root)"></textarea>
+                <div style="text-align: end;">
+
+                    <button class="btn btn-primary" type="submit">Save</button>
+                    <a class="btn btn-secondary" href="<?= base_url('pembelian') ?>">Kembali</a>
+                </div>
             </form>
         </div>
     </div>

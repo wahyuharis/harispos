@@ -161,4 +161,28 @@ class Kategori extends CI_Controller
         $this->db->where('id_kategori', $id);
         $this->db->delete('m_kategori');
     }
+
+    function select2_kategori()
+    {
+        $search = $this->db->escape_str($this->input->get('search'));
+        $sql = "SELECT  
+        m_kategori.id_kategori AS id,
+        m_kategori.nama_kategori AS `text`
+        FROM m_kategori
+        WHERE
+        m_kategori.nama_kategori LIKE '%".$search."%'
+        ORDER BY m_kategori.id_kategori DESC
+        LIMIT 10";
+
+        $db = $this->db->query($sql);
+
+        $res = array(
+            'results' => $db->result_array(),
+            'pagination' => array(
+                'more' => false
+            )
+        );
+        header_json();
+        echo json_encode($res);
+    }
 }

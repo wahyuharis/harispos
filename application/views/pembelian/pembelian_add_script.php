@@ -72,7 +72,7 @@
 
                     },
                     error: function(err) {
-                        alert("terjadi kesalahan");
+                        alert("Terjadi Kesalahan Periksa Koneksi");
                         JsLoadingOverlay.hide();
                     }
                 });
@@ -114,7 +114,7 @@
 
                 },
                 error: function(err) {
-                    alert("terjadi kesalahan");
+                    alert("Terjadi Kesalahan Periksa Koneksi");
                     JsLoadingOverlay.hide();
                     $('#barcode').val('');
                     $('#barcode').focus();
@@ -193,6 +193,10 @@
         $('#tanggal').daterangepicker({
             singleDatePicker: true,
             locale: glob_daterange_locale,
+            showDropdowns: true,
+            minYear: <?=date("Y",strtotime("-10 year"));?>,
+            maxYear: <?=date("Y",strtotime("+10 year"));?>,
+            autoApply : true
         });
 
         $('#pick_item_modal').on('shown.bs.modal', function(event) {
@@ -247,7 +251,7 @@
                 {
                     if (data.success) {
                         insert_id = data.data.insert_id;
-                        window.location = '<?= base_url('pembelian/view/') ?>' + insert_id;
+                        window.location = '<?= base_url('pembelian/detail/') ?>' + insert_id;
                         console.log(data);
                     } else {
                         toastr.error(data.message);

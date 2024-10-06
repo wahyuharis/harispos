@@ -26,7 +26,7 @@ if ($segment1 == '' || $segment1 == 'home') {
 <?php
 $menu_open = "";
 $display = 'display: none;';
-if (in_array($segment1, ['kontak','kategori', 'item', 'metode_pembayaran'])) {
+if (in_array($segment1, ['kontak', 'kategori', 'item', 'metode_pembayaran'])) {
     $menu_open = " menu-is-opening menu-open ";
     $display = 'display: block;';
 }
@@ -99,35 +99,96 @@ if (in_array($segment1, ['kontak','kategori', 'item', 'metode_pembayaran'])) {
 
 
 
-
 <?php
-$active = "";
-if ($segment1 == 'pembelian') {
-    $active = ' active ';
+$menu_open = "";
+$display = 'display: none;';
+if (in_array($segment1, ['pembelian', 'pembelian_retur'])) {
+    $menu_open = " menu-is-opening menu-open ";
+    $display = 'display: block;';
 }
 ?>
-<li class="nav-item">
-    <a href="<?= base_url('pembelian') ?>" class="nav-link <?= $active ?>">
-        <!-- <i class="far fa-circle"></i> -->
-        <i class="fas fa-cart-arrow-down"></i>
-        <p>Pembelian</p>
+<li class="nav-item <?= $menu_open ?> ">
+    <a href="#" class="nav-link">
+        <i class="fas fa-shopping-cart"></i>
+        <p>
+            Pembelian
+            <i class="fas fa-angle-left right"></i>
+        </p>
     </a>
+    <ul class="nav nav-treeview" style="<?= $display ?>">
+        <?php
+        $active = "";
+        if ($segment1 == 'pembelian') {
+            $active = ' active ';
+        }
+        ?>
+        <li class="nav-item">
+            <a href="<?= base_url('pembelian') ?>" class="nav-link <?= $active ?>">
+                <i class="fas fa-cart-plus"></i>
+                <p>Pembelian</p>
+            </a>
+        </li>
+        <?php
+        $active = "";
+        if ($segment1 == 'pembelian_retur') {
+            $active = ' active ';
+        }
+        ?>
+        <li class="nav-item">
+            <a href="<?= base_url('pembelian_retur') ?>" class="nav-link <?= $active ?>">
+                <i class="fas fa-redo-alt"></i>
+                <p>Retur Pembelian</p>
+            </a>
+        </li>
+    </ul>
 </li>
 
 
 <?php
-$active = "";
-if ($segment1 == 'sales') {
-    $active = ' active ';
+$menu_open = "";
+$display = 'display: none;';
+if (in_array($segment1, ['penjualan', 'penjualan_retur'])) {
+    $menu_open = " menu-is-opening menu-open ";
+    $display = 'display: block;';
 }
 ?>
-<li class="nav-item">
-    <a href="<?= base_url('sales') ?>" class="nav-link <?= $active ?>">
-        <!-- <i class="far fa-circle"></i> -->
+<li class="nav-item <?= $menu_open ?> ">
+    <a href="#" class="nav-link">
         <i class="fas fa-cash-register"></i>
-        <p>Penjualan</p>
+        <p>
+            Penjualan
+            <i class="fas fa-angle-left right"></i>
+        </p>
     </a>
+    <ul class="nav nav-treeview" style="<?= $display ?>">
+        <?php
+        $active = "";
+        if ($segment1 == 'penjualan') {
+            $active = ' active ';
+        }
+        ?>
+        <li class="nav-item">
+            <a href="<?= base_url('penjualan') ?>" class="nav-link <?= $active ?>">
+                <i class="fas fa-cash-register"></i>
+                <p>Penjualan</p>
+            </a>
+        </li>
+        <?php
+        $active = "";
+        if ($segment1 == 'penjualan_retur') {
+            $active = ' active ';
+        }
+        ?>
+        <li class="nav-item">
+            <a href="<?= base_url('penjualan_retur') ?>" class="nav-link <?= $active ?>">
+                <i class="fas fa-undo-alt"></i>
+                <p>Retur Penjualan</p>
+            </a>
+        </li>
+    </ul>
 </li>
+
+
 
 <?php
 $active = "";

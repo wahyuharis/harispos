@@ -38,7 +38,7 @@
                     </div>
 
                     <div class="form-group">
-                        
+
                         <br>
                         <?php
                         $checked = "";
@@ -65,8 +65,11 @@
 
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">save</button>
-            <a class="btn btn-secondary" href="<?= base_url('item') ?>">Kembali</a>
+            <div style="text-align: end;">
+
+                <button type="submit" class="btn btn-primary">save</button>
+                <a class="btn btn-secondary" href="<?= base_url('item') ?>">Kembali</a>
+            </div>
         </form>
     </div>
 </div>

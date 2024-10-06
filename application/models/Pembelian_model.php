@@ -8,7 +8,7 @@ class Pembelian_model extends CI_Model
         $limit = $this->input->get('length');
         
         $sql = "
-SELECT * FROM (
+SELECT id_pembelian,'' AS `action`,kode_pembelian,tanggal,supplier,total,'' as status,total_bayar,id_kontak FROM (
 	SELECT 
 	pembelian.id_pembelian,
 	pembelian.kode_pembelian,
@@ -34,16 +34,14 @@ SELECT * FROM (
 	pembelian
 	LEFT JOIN m_kontak ON m_kontak.id_kontak=pembelian.id_kontak
 ) AS tb_pembelian
-WHERE kode_pembelian LIKE '%%'
-AND
-tanggal LIKE '%05/10/2024%'
-AND
-id_kontak LIKE '4'
+WHERE 1
         ";
         
         $totalrows = $this->db->query("  SELECT COUNT(*) AS totalrows FROM ( " . $sql . ") AS tb");
         $sql .= "limit " . intval($start) . "," . intval($limit) . " ";
         $data = $this->db->query($sql);
+
+		// print_r2($sql);
 
         return array(
             'data' => $data->result_array(),

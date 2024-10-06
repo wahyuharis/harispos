@@ -14,15 +14,18 @@
                 </div>
                 <div class="col-md-4">
 
-  
+
 
                 </div>
                 <div class="col-md-4 pl-4">
-                   
+
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">save</button>
-            <a class="btn btn-secondary" href="<?= base_url('kategori') ?>">Kembali</a>
+            <div style="text-align: end;">
+
+                <button type="submit" class="btn btn-primary">save</button>
+                <a class="btn btn-secondary" href="<?= base_url('kategori') ?>">Kembali</a>
+            </div>
         </form>
     </div>
 </div>

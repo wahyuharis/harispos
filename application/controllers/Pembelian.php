@@ -10,7 +10,8 @@ class Pembelian extends CI_Controller
         $auth->logged_in();
     }
 
-    function index() {
+    function index()
+    {
         $template = new Template();
 
         $template->set_content('pembelian/pembelian_list', []);
@@ -20,8 +21,48 @@ class Pembelian extends CI_Controller
 
     function datatables()
     {
-        
+        $data = array();
 
+        $this->load->model('Pembelian_model');
+        $pembelian_model = new Pembelian_model();
+
+        $sql = $pembelian_model->sql_list();
+
+        foreach ($sql['data'] as $row) {
+            $buff = array();
+            foreach ($row as $key => $val) {
+
+                if ($key == 'action') {
+                    $val = '';
+                    $val .= '<a href="' . base_url('pembelian/detail/' . $row['id_pembelian']) . '" class="btn btn-success btn-sm" >detail</a>';
+                }
+
+                if ($key == 'total') {
+                    $val = "Rp ".format_currency($row['total']);
+                }
+                if ($key == 'status') {
+                    if ((floatval($row['total_bayar']) == 0)) {
+                        $val = '<span class="badge badge-danger" >Belum Lunas</span>';
+                    } elseif ((floatval($row['total']) > floatval($row['total_bayar']) && floatval($row['total_bayar']) > 0)) {
+                        $val = '<span class="badge badge-warning" >Parsial</span>';
+                    } elseif (floatval($row['total']) <= floatval($row['total_bayar'])) {
+                        $val = '<span class="badge badge-primary" >Lunas</span>';
+                    }
+                }
+
+                array_push($buff, $val);
+            }
+            array_push($data, $buff);
+        }
+
+        header_json();
+        $res = array(
+            // 'draw' => 1,
+            "recordsTotal" => intval($sql['totalrows']),
+            "recordsFiltered" => intval($sql['totalrows']),
+            "data" => $data,
+        );
+        echo json_encode($res);
     }
 
     function add()

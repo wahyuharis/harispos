@@ -1,6 +1,22 @@
 <script>
     $(document).ready(function() {
-        $('select[name=id_kategori]').select2();
+        // $('select[name=id_kategori]').select2();
+
+        $('select[name=id_kategori]').select2({
+            // minimumInputLength: 2,
+            placeholder: "Ketik Nama Kontak",
+            allowClear: true,
+            ajax: {
+                url: '<?= base_url('kategori/select2_kategori') ?>',
+                data: function(params) {
+                    var query = {
+                        search: params.term,
+                        type: 'public'
+                    }
+                    return query;
+                }
+            }
+        });
 
         format_currency();
 

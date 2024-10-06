@@ -41,44 +41,47 @@
                 </div>
                 <div class="col-md-4 pl-4">
                     <?php
-                    $checked="";
-                    if($is_customer){
-                        $checked="checked";
+                    $checked = "";
+                    if ($is_customer) {
+                        $checked = "checked";
                     }
                     ?>
                     <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" name="is_customer" id="is_customer" value="1" <?=$checked?> >
+                        <input type="checkbox" class="custom-control-input" name="is_customer" id="is_customer" value="1" <?= $checked ?>>
                         <label class="custom-control-label" for="is_customer">Adalah Customer</label>
                     </div>
                     <br>
 
                     <?php
-                    $checked="";
-                    if($is_supplier){
-                        $checked="checked";
+                    $checked = "";
+                    if ($is_supplier) {
+                        $checked = "checked";
                     }
                     ?>
                     <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" name="is_supplier" id="is_supplier" value="1" <?=$checked?> >
+                        <input type="checkbox" class="custom-control-input" name="is_supplier" id="is_supplier" value="1" <?= $checked ?>>
                         <label class="custom-control-label" for="is_supplier">Adalah Supplier</label>
                     </div>
                     <br>
 
                     <?php
-                    $checked="";
-                    if($is_karyawan){
-                        $checked="checked";
+                    $checked = "";
+                    if ($is_karyawan) {
+                        $checked = "checked";
                     }
                     ?>
                     <div class="custom-control custom-switch">
-                        <input type="checkbox" class="custom-control-input" name="is_karyawan" id="is_karyawan" value="1" <?=$checked?> >
+                        <input type="checkbox" class="custom-control-input" name="is_karyawan" id="is_karyawan" value="1" <?= $checked ?>>
                         <label class="custom-control-label" for="is_karyawan">Adalah Karyawan</label>
                     </div>
 
                 </div>
             </div>
-            <button type="submit" class="btn btn-primary">save</button>
-            <a class="btn btn-secondary" href="<?= base_url('kontak') ?>">Kembali</a>
+            <div style="text-align: end;">
+                <button type="submit" class="btn btn-primary">save</button>
+                <a class="btn btn-secondary" href="<?= base_url('kontak') ?>">Kembali</a>
+            </div>
+
         </form>
     </div>
 </div>

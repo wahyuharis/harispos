@@ -67,20 +67,22 @@ class Item extends CI_Controller
         echo json_encode($res);
     }
 
-    function item_detail($id_item){
+    function item_detail($id_item)
+    {
         $this->load->model('Item_model');
-        $item_model=new Item_model();
+        $item_model = new Item_model();
         // $item_detail=
-        $item_detail=$item_model->sql_item_detail($id_item);
+        $item_detail = $item_model->sql_item_detail($id_item);
         header_json();
         echo json_encode($item_detail);
     }
 
-    function item_detail_barcode($barcode){
+    function item_detail_barcode($barcode)
+    {
         $this->load->model('Item_model');
-        $item_model=new Item_model();
+        $item_model = new Item_model();
         // $item_detail=
-        $item_detail=$item_model->sql_item_detail_barcode($barcode);
+        $item_detail = $item_model->sql_item_detail_barcode($barcode);
         header_json();
         echo json_encode($item_detail);
     }
@@ -184,7 +186,7 @@ class Item extends CI_Controller
     {
         $message = '';
         $data = [];
-        $success = false;
+        $success = true;
 
         $post_data = $this->input->post();
 
@@ -201,12 +203,31 @@ class Item extends CI_Controller
         if ($this->form_validation->run() == FALSE) {
             $success = false;
             $message .= validation_errors();
-        } else {
-            $success = true;
         }
 
-        $id = in_post('id');
+        if (empty(in_post('id'))) {
+            $this->db->where('deleted', 0);
+            $this->db->where('barcode', in_post('barcode'));
+            $this->db->from('m_item');
+            $count = $this->db->count_all_results();
+            if ($count > 0) {
+                $success = false;
+                $message .= "<p>Barcode Sudah Terpakai</p>";
+            }
+        } else {
+            $this->db->where('deleted', 0);
+            $this->db->where('id_item !=',in_post('id'));
+            $this->db->where('barcode', in_post('barcode'));
+            $this->db->from('m_item');
+            $count = $this->db->count_all_results();
+            if ($count > 0) {
+                $success = false;
+                $message .= "<p>Barcode Sudah Terpakai</p>";
+            }
+        }
 
+
+        $id = in_post('id');
         if ($success) {
             if (empty($id)) {
 

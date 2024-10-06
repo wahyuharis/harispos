@@ -1,16 +1,78 @@
+<div class="modal fade" id="filter_modal" aria-labelledby="filter_modal_label" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="filter_modal_label">Pencarian</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="form_filter">
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="kode_pembelian">Kode Pembelian</label>
+                                <input type="text" class="form-control" id="kode_pembelian" name="kode_pembelian">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tanggal">Tanggal</label>
+                                <input type="text" class="form-control" id="tanggal" name="tanggal" style="background-color: #fff;" readonly>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label for="id_kontak">Supplier</label>
+                                <select id="id_kontak" class="form-control" name="id_kontak"></select>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tanggal">Status</label>
+                                <select class="form-control" name="status" id="status">
+
+                                    <option>-- Pilih Status --</option>
+                                    <option>Lunas</option>
+                                    <option>Parsial</option>
+                                    <option>Belum Lunas</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Cari</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 <div class="card">
     <div class="card-body">
-        <a class="btn btn-primary" href="<?=base_url('metode_pembayaran/add')?>" >Add</a>
-        <br>
+        <div class="row">
+            <div class="col-md-6">
+                <a class="btn btn-primary" href="<?= base_url('pembelian/add') ?>">Add</a>
+
+            </div>
+            <div class="col-md-6 text-right">
+                <a class="btn btn-outline-secondary" data-toggle="modal" data-target="#filter_modal">
+                    <i class="fas fa-search"></i> Search
+                </a>
+            </div>
+        </div>
         <br>
         <table id="dtt_tables" class="table table-striped">
             <thead>
                 <tr>
                     <th>id</th>
                     <th>#</th>
-                    <th><?=label2("nama_metode_pembayaran")?></th>
-                    <th><?=label2("bank")?></th>
-                    <th><?=label2("no_rekening")?></th>
+                    <th><?= label2("kode_pembelian") ?></th>
+                    <th><?= label2("tanggal") ?></th>
+                    <th><?= label2("supplier") ?></th>
+                    <th><?= label2("total") ?></th>
+                    <th><?= label2("status") ?></th>
                 </tr>
             </thead>
             <tbody>
@@ -18,54 +80,4 @@
         </table>
     </div>
 </div>
-<script>
-    $(document).ready(function() {
-        var table = $('#dtt_tables').DataTable({
-            "columnDefs": [{
-                "targets": 0,
-                "visible": false,
-                "searchable": false,
-            }],
-            "ordering": false,
-            "processing": true,
-            "ajax": '<?=base_url('metode_pembayaran/datatables')?>',
-            "buttons": ["copy", "csv", "excel", "pdf"],
-            "dom": "<'row'<'col-sm-12 col-md-6'B><'col-sm-12 col-md-6'f>>" +
-                "<'row'<'col-sm-12'tr>>" +
-                "<'row'<'col-sm-12 col-md-5'l><'col-sm-12 col-md-7'p>>",
-            "drawCallback": function(settings) {
-                delete_handler();
-            },
-        });
-
-        function delete_handler() {
-            $('.delete_btn').click(function(e) {
-                e.preventDefault();
-                delete_url = $(this).attr('href');
-
-                bootbox.confirm({
-                    message: "Yakin Menghapus Data ?",
-                    buttons: {
-                        confirm: {
-                            label: 'Yes',
-                            className: 'btn-danger'
-                        },
-                        cancel: {
-                            label: 'No',
-                            className: 'btn-secondary'
-                        }
-                    },
-                    callback: function(result) {
-                        if (result) {
-                            $.get(delete_url, function(data, status) {
-                                table.ajax.reload(null, false);
-                                toastr.success("Data Telah dihapus","Info");
-                            });
-                        }
-                    }
-                });
-
-            });
-        }
-    });
-</script>
+<?php require_once "pembelian_list_script.php" ?>
