@@ -21,6 +21,8 @@ class Pembelian extends CI_Controller
 
     function datatables()
     {
+        // print_r2($_GET);
+
         $data = array();
 
         $this->load->model('Pembelian_model');

@@ -90,5 +90,13 @@
             $('#filter_modal').modal('hide');
         });
 
+        $('#clear_form_filter').click(function(){
+            $('#id_kontak').val("").trigger('change');
+            $('#kode_pembelian').val("");
+            $('#tanggal').val("");
+            $('#status').val("");
+            // $('#form_filter')[0].reset();
+        })
+
     });
 </script>

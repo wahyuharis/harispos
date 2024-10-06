@@ -1,3 +1,6 @@
+<style>
+  
+</style>
 <div class="modal fade" id="filter_modal" aria-labelledby="filter_modal_label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -9,6 +12,12 @@
             </div>
             <form id="form_filter">
                 <div class="modal-body">
+                    <div style="text-align: right;">
+                        <button id="clear_form_filter" type="button" class="btn btn-outline-secondary">
+                            <i class="fas fa-eraser"></i>
+                            Clear
+                        </button>
+                    </div>
                     <div class="row">
                         <div class="col-6">
                             <div class="form-group">
@@ -28,13 +37,13 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="tanggal">Status</label>
+                                <label for="status">Status</label>
                                 <select class="form-control" name="status" id="status">
 
-                                    <option>-- Pilih Status --</option>
-                                    <option>Lunas</option>
-                                    <option>Parsial</option>
-                                    <option>Belum Lunas</option>
+                                    <option value="">-- Pilih Status --</option>
+                                    <option value="lunas">Lunas</option>
+                                    <option value="parsial">Parsial</option>
+                                    <option value="belum_lunas">Belum Lunas</option>
                                 </select>
                             </div>
 

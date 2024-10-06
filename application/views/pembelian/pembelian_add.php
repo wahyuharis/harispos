@@ -16,7 +16,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="id_kontak">Supplier</label>
+                        <label for="id_kontak">Supplier*</label>
                         <select id="id_kontak" class="form-control" data-bind="value:id_kontak"></select>
                     </div>
 

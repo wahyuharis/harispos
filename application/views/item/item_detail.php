@@ -26,17 +26,23 @@
                     <tr>
                         <td><?= label2('harga_beli') ?></td>
                         <td>:</td>
-                        <td><?= $harga_beli ?></td>
+                        <td><?= format_currency($harga_beli) ?></td>
                     </tr>
                     <tr>
                         <td><?= label2('harga_jual') ?></td>
                         <td>:</td>
-                        <td><?= $harga_jual ?></td>
+                        <td><?= format_currency($harga_jual) ?></td>
                     </tr>
                     <tr>
                         <td><?= label2('hitung_stock') ?></td>
                         <td>:</td>
-                        <td><?= $hitung_stock ?></td>
+                        <td><?php
+                            if ($hitung_stock) {
+                                echo "Y (Barang)";
+                            } else {
+                                echo "T (Jasa)";
+                            }
+                            ?></td>
                     </tr>
 
                     <tr>
