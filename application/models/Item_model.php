@@ -20,7 +20,8 @@ class Item_model extends CI_Model
                 m_item.harga_beli,
                 m_item.harga_jual,
                 '' as `stock`,
-                m_item.satuan
+                m_item.satuan,
+                hitung_stock
                 FROM m_item
                 LEFT JOIN m_kategori ON m_kategori.id_kategori=m_item.id_kategori
                 WHERE m_item.deleted =0 and (
@@ -58,7 +59,8 @@ class Item_model extends CI_Model
                 m_item.harga_jual,
                 '' as `stock`,
                 m_item.satuan,
-                m_item.id_item
+                m_item.id_item,
+                hitung_stock
                 FROM m_item
                 LEFT JOIN m_kategori ON m_kategori.id_kategori=m_item.id_kategori
                 WHERE m_item.deleted =0 and (

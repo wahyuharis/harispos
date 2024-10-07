@@ -1,6 +1,15 @@
 <script>
     $(document).ready(function() {
         // $('select[name=id_kategori]').select2();
+        $('#hitung_stock').change(function() {
+            checked = $(this).prop('checked');
+            if (checked) {
+                $('#item_type').html('Barang');
+            } else {
+                $('#item_type').html('Jasa');
+
+            }
+        });
 
         $('select[name=id_kategori]').select2({
             // minimumInputLength: 2,

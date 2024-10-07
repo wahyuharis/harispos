@@ -10,7 +10,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="nama_item">Nama Item</label>
+                        <label for="nama_item">Nama Item *</label>
                         <input type="text" class="form-control" id="nama_item" name="nama_item" value="<?= $nama_item ?>">
                     </div>
 
@@ -21,19 +21,19 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="satuan">Satuan</label>
+                        <label for="satuan">Satuan *</label>
                         <input type="text" maxlength="5" class="form-control" id="satuan" name="satuan" value="<?= $satuan ?>">
                     </div>
 
                 </div>
                 <div class="col-md-4">
                     <div class="form-group">
-                        <label for="harga_beli">Harga Beli</label>
+                        <label for="harga_beli">Harga Beli <small>(wajib diisi jika barang)</small></label>
                         <input type="text" class="form-control thousand" id="harga_beli" name="harga_beli" value="<?= $harga_beli ?>">
                     </div>
 
                     <div class="form-group">
-                        <label for="harga_jual">Harga Jual</label>
+                        <label for="harga_jual">Harga Jual *</label>
                         <input type="text" class="form-control thousand" id="harga_jual" name="harga_jual" value="<?= $harga_jual ?>">
                     </div>
 
@@ -42,16 +42,19 @@
                         <br>
                         <?php
                         $checked = "";
+                        $item_type = "Jasa";
                         if ($hitung_stock) {
                             $checked = "checked";
+                            $item_type = "Barang";
                         }
                         ?>
                         <div class="custom-control custom-switch">
                             <input type="checkbox" class="custom-control-input" name="hitung_stock" id="hitung_stock" value="1" <?= $checked ?>>
-                            <label class="custom-control-label" for="hitung_stock">Hitung Stock</label>
+                            <label class="custom-control-label" for="hitung_stock">Hitung Stock (<span id="item_type" ><?=$item_type?></span>) </label>
                         </div>
                         <br>
                     </div>
+                    
 
 
 

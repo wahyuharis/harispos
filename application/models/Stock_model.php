@@ -37,13 +37,22 @@ class Stock_model extends CI_Model
 
     function stock_in($waktu, $id_item, $qty, $harga)
     {
-        $insert['waktu'] = $waktu;
-        $insert['id_item'] = $id_item;
-        $insert['qty_awal'] = $this->stock_akhir($id_item);
-        $insert['qty_in'] = $qty;
-        $insert['qty_akhir'] = $insert['qty_awal'] + $qty;
-        $insert['harga'] = $harga;
+        $this->db->where('id_item', $id_item);
+        $db = $this->db->get('m_item');
+        $hitung_stok = 1;
+        if ($db->num_rows() > 0) {
+            $hitung_stok = intval($db->row_array()['hitung_stock']);
+        }
 
-        $this->db->insert('stock',$insert);
+        if ($hitung_stok > 0) {
+            $insert['waktu'] = $waktu;
+            $insert['id_item'] = $id_item;
+            $insert['qty_awal'] = $this->stock_akhir($id_item);
+            $insert['qty_in'] = $qty;
+            $insert['qty_akhir'] = $insert['qty_awal'] + $qty;
+            $insert['harga'] = $harga;
+
+            $this->db->insert('stock', $insert);
+        }
     }
 }

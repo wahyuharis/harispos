@@ -5,7 +5,7 @@
                 <div class="col-md-4">
                     <input type="hidden" name="id" value="<?= $id ?>">
                     <div class="form-group">
-                        <label for="nama_metode_pembayaran">Nama Metode Pembayaran</label>
+                        <label for="nama_metode_pembayaran">Nama Metode Pembayaran *</label>
                         <input type="text" class="form-control" id="nama_metode_pembayaran" name="nama_metode_pembayaran" value="<?= $nama_metode_pembayaran ?>">
                     </div>
                     <div class="form-group">

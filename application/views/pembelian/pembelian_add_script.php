@@ -82,44 +82,46 @@
         }
 
         self.add_item_barcode = function(barcode) {
-            Custom_loading();
-            $.ajax({
-                url: '<?= base_url('/item/item_detail_barcode') ?>/' + barcode,
-                type: 'get',
-                success: function(data) {
-                    // console.log(data);
+            if (barcode.trim().length > 0) {
+                Custom_loading();
+                $.ajax({
+                    url: '<?= base_url('/item/item_detail_barcode') ?>/' + barcode,
+                    type: 'get',
+                    success: function(data) {
+                        // console.log(data);
 
-                    id_item = data.id_item;
-                    add = true;
-                    for (var i = 0; i < self.item_list().length; i++) {
-                        id_item2 = self.item_list()[i].id_item();
-                        if (id_item == id_item2) {
-                            add = false;
-                            last_qty = curency_to_float(self.item_list()[i].qty());
-                            last_qty = last_qty + 1;
-                            // last_qty = float_to_currency(last_qty);
-                            self.item_list()[i].qty(last_qty)
+                        id_item = data.id_item;
+                        add = true;
+                        for (var i = 0; i < self.item_list().length; i++) {
+                            id_item2 = self.item_list()[i].id_item();
+                            if (id_item == id_item2) {
+                                add = false;
+                                last_qty = curency_to_float(self.item_list()[i].qty());
+                                last_qty = last_qty + 1;
+                                // last_qty = float_to_currency(last_qty);
+                                self.item_list()[i].qty(last_qty)
+                            }
                         }
-                    }
-                    if (add) {
-                        // function add_item(id_item, barcode, nama_item, harga_beli, qty, satuan, stock, disc) {                       
-                        self.item_list.push(new add_item(data.id_item, data.barcode, data.nama_item, data.harga_beli, '1', data.satuan, data.stock, '0'));
+                        if (add) {
+                            // function add_item(id_item, barcode, nama_item, harga_beli, qty, satuan, stock, disc) {                       
+                            self.item_list.push(new add_item(data.id_item, data.barcode, data.nama_item, data.harga_beli, '1', data.satuan, data.stock, '0'));
 
-                    } else {
-                        // toastr["error"]("Maaf Item Sudah Ada !");
-                    }
-                    JsLoadingOverlay.hide();
-                    $('#barcode').val('');
-                    $('#barcode').focus();
+                        } else {
+                            // toastr["error"]("Maaf Item Sudah Ada !");
+                        }
+                        JsLoadingOverlay.hide();
+                        $('#barcode').val('');
+                        $('#barcode').focus();
 
-                },
-                error: function(err) {
-                    alert("Terjadi Kesalahan Periksa Koneksi");
-                    JsLoadingOverlay.hide();
-                    $('#barcode').val('');
-                    $('#barcode').focus();
-                }
-            });
+                    },
+                    error: function(err) {
+                        alert("Terjadi Kesalahan Periksa Koneksi");
+                        JsLoadingOverlay.hide();
+                        $('#barcode').val('');
+                        $('#barcode').focus();
+                    }
+                });
+            }
 
         }
 
@@ -194,9 +196,9 @@
             singleDatePicker: true,
             locale: glob_daterange_locale,
             showDropdowns: true,
-            minYear: <?=date("Y",strtotime("-10 year"));?>,
-            maxYear: <?=date("Y",strtotime("+10 year"));?>,
-            autoApply : true
+            minYear: <?= date("Y", strtotime("-10 year")); ?>,
+            maxYear: <?= date("Y", strtotime("+10 year")); ?>,
+            autoApply: true
         });
 
         $('#pick_item_modal').on('shown.bs.modal', function(event) {
@@ -228,7 +230,7 @@
 
             var context = ko.contextFor(document.getElementById("pembelian_add"));
             context.$data.add_item_barcode(val);
-            
+
         });
 
         $('#pick_item_modal').on('hidden.bs.modal', function(event) {

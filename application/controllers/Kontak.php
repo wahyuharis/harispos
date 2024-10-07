@@ -142,7 +142,6 @@ class Kontak extends CI_Controller
         $this->form_validation->set_rules('nama_kontak', 'Nama Kontak', 'trim|required');
         $this->form_validation->set_rules('phone', 'phone', 'trim|required');
         $this->form_validation->set_rules('whatsapp', 'Whatsapp', 'trim|required');
-        $this->form_validation->set_rules('email', 'Email', 'trim|required');
         $this->form_validation->set_rules('id_kota', 'Kota', 'trim|required');
 
         if ($this->form_validation->run() == FALSE) {

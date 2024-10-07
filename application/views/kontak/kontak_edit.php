@@ -5,17 +5,17 @@
                 <div class="col-md-4">
                     <input type="hidden" name="id" value="<?= $id ?>">
                     <div class="form-group">
-                        <label for="nama_kontak">Nama Kontak</label>
+                        <label for="nama_kontak">Nama Kontak*</label>
                         <input type="text" class="form-control" id="nama_kontak" name="nama_kontak" value="<?= $nama_kontak ?>">
                     </div>
 
                     <div class="form-group">
-                        <label for="phone">phone</label>
+                        <label for="phone">Telphone*</label>
                         <input type="text" class="form-control" id="phone" name="phone" value="<?= $phone ?>">
                     </div>
 
                     <div class="form-group">
-                        <label for="whatsapp">whatsapp</label>
+                        <label for="whatsapp">Whatsapp*</label>
                         <input type="text" class="form-control" id="whatsapp" name="whatsapp" value="<?= $whatsapp ?>">
                     </div>
 
@@ -29,7 +29,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="id_kota">Kota</label>
+                        <label for="id_kota">Kota*</label>
                         <?= form_dropdown('id_kota', $opt_kota, $id_kota, ' class="form-control" id="id_kota" ') ?>
                     </div>
 
@@ -81,7 +81,7 @@
                 <button type="submit" class="btn btn-primary">save</button>
                 <a class="btn btn-secondary" href="<?= base_url('kontak') ?>">Kembali</a>
             </div>
-
+            (*) Wajib Diisi
         </form>
     </div>
 </div>

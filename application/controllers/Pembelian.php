@@ -237,7 +237,6 @@ class Pembelian extends CI_Controller
 
             $data['insert_id'] = $insert_id;
 
-
             $this->db->trans_complete();
             if ($this->db->trans_status() === FALSE) {
                 $this->db->trans_rollback();
@@ -253,5 +252,30 @@ class Pembelian extends CI_Controller
         );
         header_json();
         echo json_encode($res);
+    }
+
+    function detail($id_pembelian=null){
+
+        $this->load->model('Pembelian_model');
+        $this->load->model('Pembelian_detail_model');
+        $this->load->model('Pembelian_biaya_model');
+        $pembelian_model=new Pembelian_model();
+        $pembelian_detil_model=new Pembelian_detail_model();
+        $pembelian_biaya_model=new Pembelian_biaya_model();
+        
+
+        $content_data=array();
+        $content_data['pembelian']=$pembelian_model->detail($id_pembelian);
+        $content_data['pembelian_detil']=$pembelian_detil_model->detail($id_pembelian);
+        $content_data['pembelian_biaya']=$pembelian_biaya_model->detail($id_pembelian);
+
+        // print_r2($content_data['pembelian']);
+
+        $template = new Template();
+        $template->set_content('pembelian/pembelian_detail', $content_data);
+
+        $template->set_title('Detail Barang & Jasa');
+
+        $template->render();
     }
 }

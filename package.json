@@ -2,6 +2,7 @@
   "dependencies": {
     "bootbox": "^6.0.0",
     "js-loading-overlay": "^1.2.0",
+    "jspdf": "^2.5.2",
     "knockout": "^3.5.1",
     "numeral": "^2.0.6",
     "toastr": "^2.1.4"

@@ -48,8 +48,12 @@ class Item extends CI_Controller
                 }
 
                 if ($key == 'stock') {
-                    $stock_model = new Stock_model();
-                    $val = $stock_model->stock_akhir($row['id_item']);
+                    if (intval($row['hitung_stock']) > 0) {
+                        $stock_model = new Stock_model();
+                        $val = $stock_model->stock_akhir($row['id_item']);
+                    } else {
+                        $val = '<span class="badge badge-secondary">Jasa</span><br>';
+                    }
                 }
 
                 array_push($buff, $val);
@@ -111,9 +115,15 @@ class Item extends CI_Controller
                     $val = "Rp " . format_currency($val);
                 }
 
+
+
                 if ($key == 'stock') {
-                    $stock_model = new Stock_model();
-                    $val = $stock_model->stock_akhir($row['id_item']);
+                    if (intval($row['hitung_stock']) > 0) {
+                        $stock_model = new Stock_model();
+                        $val = $stock_model->stock_akhir($row['id_item']);
+                    } else {
+                        $val = '<span class="badge badge-secondary">Jasa</span><br>';
+                    }
                 }
 
                 array_push($buff, $val);
@@ -196,7 +206,9 @@ class Item extends CI_Controller
         // $this->form_validation->set_rules('barcode', 'Barcode', 'trim|required');
         $this->form_validation->set_rules('nama_item', 'Nama Item', 'trim|required');
         $this->form_validation->set_rules('satuan', 'Satuan', 'trim|required');
-        $this->form_validation->set_rules('harga_beli', 'Harga Beli', 'trim|required');
+        if (intval(in_post('hitung_stock')) > 0) {
+            $this->form_validation->set_rules('harga_beli', 'Harga Beli', 'trim|required');
+        }
         $this->form_validation->set_rules('harga_jual', 'Harga Jual', 'trim|required');
 
 
@@ -205,24 +217,26 @@ class Item extends CI_Controller
             $message .= validation_errors();
         }
 
-        if (empty(in_post('id'))) {
-            $this->db->where('deleted', 0);
-            $this->db->where('barcode', in_post('barcode'));
-            $this->db->from('m_item');
-            $count = $this->db->count_all_results();
-            if ($count > 0) {
-                $success = false;
-                $message .= "<p>Barcode Sudah Terpakai</p>";
-            }
-        } else {
-            $this->db->where('deleted', 0);
-            $this->db->where('id_item !=',in_post('id'));
-            $this->db->where('barcode', in_post('barcode'));
-            $this->db->from('m_item');
-            $count = $this->db->count_all_results();
-            if ($count > 0) {
-                $success = false;
-                $message .= "<p>Barcode Sudah Terpakai</p>";
+        if (!empty(in_post('barcode'))) {
+            if (empty(in_post('id'))) {
+                $this->db->where('deleted', 0);
+                $this->db->where('barcode', in_post('barcode'));
+                $this->db->from('m_item');
+                $count = $this->db->count_all_results();
+                if ($count > 0) {
+                    $success = false;
+                    $message .= "<p>Barcode Sudah Terpakai</p>";
+                }
+            } else {
+                $this->db->where('deleted', 0);
+                $this->db->where('id_item !=', in_post('id'));
+                $this->db->where('barcode', in_post('barcode'));
+                $this->db->from('m_item');
+                $count = $this->db->count_all_results();
+                if ($count > 0) {
+                    $success = false;
+                    $message .= "<p>Barcode Sudah Terpakai</p>";
+                }
             }
         }
 
@@ -279,11 +293,7 @@ class Item extends CI_Controller
         $template = new Template();
         $template->set_content('item/item_detail', $contet_data);
 
-        if (empty(trim($id))) {
-            $template->set_title('Detail Barang & Jasa');
-        } else {
-            $template->set_title('Detail Barang & Jasa');
-        }
+        $template->set_title('Detail Barang & Jasa');
 
         $template->render();
     }
