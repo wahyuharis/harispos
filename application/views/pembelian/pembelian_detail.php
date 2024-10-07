@@ -4,36 +4,36 @@
             <div class="col-md-4">
                 <table class="table table-striped">
                     <tr>
-                        <th>Kode Pembelian</th>
+                        <th style="width: 30%;">Kode Pembelian</th>
                         <th>:</th>
-                        <th><?=$pembelian['kode_pembelian']?></th>
+                        <th><?= $pembelian['kode_pembelian'] ?></th>
                     </tr>
                     <tr>
                         <th>Supplier</th>
                         <th>:</th>
-                        <th><?=$pembelian['supplier']?></th>
+                        <th><?= $pembelian['supplier'] ?></th>
                     </tr>
                 </table>
             </div>
             <div class="col-md-4">
                 <table class="table table-striped">
                     <tr>
-                        <th>Tanggal</th>
+                        <th style="width: 40%;">Tanggal</th>
                         <th>:</th>
-                        <th><?=$pembelian['tanggal']?></th>
+                        <th><?= $pembelian['tanggal'] ?></th>
                     </tr>
                     <tr>
                         <th>Status</th>
                         <th>:</th>
                         <th>
                             <?php
-                            $total=$pembelian['total'];
-                            $total_bayar=$pembelian['total_bayar'];
-                            if($total_bayar==0){
+                            $total = $pembelian['total'];
+                            $total_bayar = $pembelian['total_bayar'];
+                            if ($total_bayar == 0) {
                                 echo "Belum Lunas";
-                            }elseif($total_bayar>0 && $total_bayar<$total){
+                            } elseif ($total_bayar > 0 && $total_bayar < $total) {
                                 echo "Parsial";
-                            }elseif($total<=$total_bayar){
+                            } elseif ($total <= $total_bayar) {
                                 echo "Lunas";
                             }
                             ?>
@@ -44,14 +44,74 @@
             <div class="col-md-4">
                 <table class="table table-striped">
                     <tr>
-                        <th>Keterangan</th>
+                        <th style="width: 40%;">Keterangan</th>
                         <th>:</th>
-                        <th><?=$pembelian['keterangan']?></th>
+                        <th><?= $pembelian['keterangan'] ?></th>
                     </tr>
-                    
+
                 </table>
             </div>
         </div>
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <th>No</th>
+                        <th>Nama Item</th>
+                        <th>Harga</th>
+                        <th>Qty</th>
+                        <th>Disc</th>
+                        <th>Sub</th>
+                    </thead>
+                    <tbody>
+                        <?php $no = 0; ?>
+                        <?php foreach ($pembelian_detil as $row) { ?>
+                            <tr>
+                                <td><?php $no++;
+                                    echo $no ?></td>
+                                <td><?= $row['nama_item'] ?></td>
+                                <td class="text-right">Rp <?= format_currency($row['harga']) ?></td>
+                                <td class="text-right"><?= $row['qty'] ?></td>
+                                <td class="text-right"><?php
+
+                                                        if ($row['disc_persen'] > 0) {
+                                                            echo $row['disc_persen'];
+                                                        } elseif ($row['disc_rp'] > 0) {
+                                                            echo "Rp " . format_currency($row['disc_rp']);
+                                                        }
+
+                                                        ?></td>
+                                <td class="text-right">Rp <?= format_currency($row['sub']) ?></td>
+                            </tr>
+                        <?php } ?>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-7">
+
+            </div>
+
+            <div class="col-md-5">
+                <table class="table table-striped">
+                    <?php foreach ($pembelian_biaya as $row){ ?>
+                    <tr>
+                        <th><?= $row['nama_biaya'] ?></th>
+                        <th>:</th>
+                        <th class="text-right">Rp <?= format_currency($row['jumlah_biaya']) ?></th>
+                    </tr>
+                    <?php } ?>
+                    <tr>
+                        <th>Total</th>
+                        <th>:</th>
+                        <th class="text-right">Rp <?= format_currency($pembelian['total']) ?></th>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
         <div style="text-align: end;">
             <a class="btn btn-secondary" href="<?= base_url('item') ?>">Kembali</a>
         </div>

@@ -199,9 +199,9 @@ class Pembelian extends CI_Controller
                 $insert2['disc_rp'] = 0;
 
                 if ($row2['disc_type'] == 'persen') {
-                    $insert2['disc_persen'] = $row2['disc'];
+                    $insert2['disc_persen'] = floatval2($row2['disc']);
                 } else {
-                    $insert2['disc_rp'] = $row2['disc'];
+                    $insert2['disc_rp'] = floatval2($row2['disc']);
                 }
                 $insert2['sub'] = floatval2($row2['sub']);
 
@@ -269,7 +269,7 @@ class Pembelian extends CI_Controller
         $content_data['pembelian_detil']=$pembelian_detil_model->detail($id_pembelian);
         $content_data['pembelian_biaya']=$pembelian_biaya_model->detail($id_pembelian);
 
-        // print_r2($content_data['pembelian']);
+        // print_r2($content_data['pembelian_biaya']);
 
         $template = new Template();
         $template->set_content('pembelian/pembelian_detail', $content_data);

@@ -59,6 +59,7 @@ WHERE 1
 				$sql .= " and total_bayar = 0 ";
 			}
 		}
+		$sql.=" order by id_pembelian desc ";
 		// print_r2($sql);
 
 		$totalrows = $this->db->query("  SELECT COUNT(*) AS totalrows FROM ( " . $sql . ") AS tb");

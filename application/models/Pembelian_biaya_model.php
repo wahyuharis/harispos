@@ -8,7 +8,7 @@ class Pembelian_biaya_model extends CI_Model
         if($db->num_rows()>0){
             return $db->result_array();
         }else{
-            return false;
+            return array();;
         }
     }
 
