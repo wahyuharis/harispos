@@ -126,6 +126,11 @@ class Pembelian extends CI_Controller
             }
         }
 
+        if (floatval2($ko_output['jumlah_biaya']) > 0 && strlen(trim($ko_output['nama_biaya'])) < 1) {
+            $success = false;
+            $message .= "<p>Beri Keterangan Biaya</p>";
+        }
+
         if (!$ko_output['is_hutang']) {
             if (floatval2($ko_output['bayar']) < 1) {
                 $success = false;
@@ -156,10 +161,9 @@ class Pembelian extends CI_Controller
                 }
             }
         }
-        if (floatval2($ko_output['jumlah_biaya']) > 0 && strlen(trim($ko_output['nama_biaya'])) < 1) {
-            $success = false;
-            $message .= "<p>Beri Keterangan Biaya</p>";
-        }
+
+        // print_r2($ko_output);
+        
 
         if ($success) {
             $this->db->trans_start(); # Starting Transaction
@@ -175,6 +179,12 @@ class Pembelian extends CI_Controller
             }
             $insert['total'] = floatval2($ko_output['total']);
             $insert['keterangan'] = $ko_output['keterangan'];
+            $insert['is_hutang']=intval($ko_output['is_hutang']);
+
+            if(!$ko_output['is_hutang']){
+                $insert['bayar']=floatval2($ko_output['bayar']);
+                $insert['kembalian']=floatval2($ko_output['kembalian']);
+            }
 
             $this->db->insert('pembelian', $insert);
             $insert_id = $this->db->insert_id();
@@ -211,7 +221,7 @@ class Pembelian extends CI_Controller
 
             if (floatval2($ko_output['jumlah_biaya']) > 0) {
                 $insert3['id_pembelian'] = $insert_id;
-                $insert3['nama_biaya'] = $ko_output['nama_biaya'];
+                $insert3['nama_biaya'] = trim($ko_output['nama_biaya']);
                 $insert3['jumlah_biaya'] = floatval2($ko_output['jumlah_biaya']);
                 $this->db->insert('pembelian_biaya', $insert3);
             }
@@ -277,5 +287,24 @@ class Pembelian extends CI_Controller
         $template->set_title('Detail Barang & Jasa');
 
         $template->render();
+    }
+    function detail_pdf($id_pembelian=null){
+
+        $this->load->model('Pembelian_model');
+        $this->load->model('Pembelian_detail_model');
+        $this->load->model('Pembelian_biaya_model');
+        $pembelian_model=new Pembelian_model();
+        $pembelian_detil_model=new Pembelian_detail_model();
+        $pembelian_biaya_model=new Pembelian_biaya_model();
+        
+
+        $content_data=array();
+        $content_data['pembelian']=$pembelian_model->detail($id_pembelian);
+        $content_data['pembelian_detil']=$pembelian_detil_model->detail($id_pembelian);
+        $content_data['pembelian_biaya']=$pembelian_biaya_model->detail($id_pembelian);
+
+        // print_r2($content_data['pembelian_biaya']);
+
+        
     }
 }

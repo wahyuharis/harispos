@@ -94,7 +94,8 @@
 <script src="<?=base_url()?>/node_modules/numeral/min/numeral.min.js"></script>
 
 
-<!-- <script src="<?=base_url()?>/jsPDF-2.5.1/dist/jspdf.umd.min.js"></script> -->
+<!-- <script src="<?=base_url()?>/node_modules/jspdf/dist/jspdf.umd.js"></script> -->
+<!-- <script src="https://html2canvas.hertzen.com/dist/html2canvas.min.js"></script> -->
 
 
 <!-- currencyjs -->

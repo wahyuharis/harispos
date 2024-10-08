@@ -87,7 +87,10 @@ WHERE 1
 					FROM keuangan
 					WHERE keuangan.tabel='pembelian' AND keuangan.id_trans=pembelian.id_pembelian
 				) AS total_bayar,
-				pembelian.keterangan
+				pembelian.keterangan,
+				pembelian.is_hutang,
+				pembelian.bayar,
+				pembelian.kembalian
 				FROM
 				pembelian
 				LEFT JOIN m_kontak ON m_kontak.id_kontak=pembelian.id_kontak

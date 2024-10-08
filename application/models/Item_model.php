@@ -63,7 +63,9 @@ class Item_model extends CI_Model
                 hitung_stock
                 FROM m_item
                 LEFT JOIN m_kategori ON m_kategori.id_kategori=m_item.id_kategori
-                WHERE m_item.deleted =0 and (
+                WHERE m_item.deleted =0 and 
+                m_item.hitung_stock = 1 and
+                (
                 m_item.barcode like '%" . $this->db->escape_str($search) . "%'
                 or
                 m_item.nama_item like '%" . $this->db->escape_str($search) . "%'

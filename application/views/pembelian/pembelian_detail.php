@@ -1,4 +1,4 @@
-<div class="card">
+<div id="pdf_content" class="card">
     <div class="card-body">
         <div class="row">
             <div class="col-md-4">
@@ -82,7 +82,9 @@
 
                                                         ?></td>
                                 <td class="text-right">Rp <?= format_currency($row['sub']) ?></td>
+
                             </tr>
+
                         <?php } ?>
                     </tbody>
                 </table>
@@ -95,25 +97,54 @@
 
             <div class="col-md-5">
                 <table class="table table-striped">
-                    <?php foreach ($pembelian_biaya as $row){ ?>
-                    <tr>
-                        <th><?= $row['nama_biaya'] ?></th>
-                        <th>:</th>
-                        <th class="text-right">Rp <?= format_currency($row['jumlah_biaya']) ?></th>
-                    </tr>
+                    <?php foreach ($pembelian_biaya as $row) { ?>
+                        <tr>
+                            <th><?= $row['nama_biaya'] ?></th>
+                            <th>:</th>
+                            <th class="text-right">Rp <?= format_currency($row['jumlah_biaya']) ?></th>
+                        </tr>
                     <?php } ?>
                     <tr>
                         <th>Total</th>
                         <th>:</th>
                         <th class="text-right">Rp <?= format_currency($pembelian['total']) ?></th>
                     </tr>
+                    <?php if ($pembelian['is_hutang'] < 1) { ?>
+                        <tr>
+                            <th>Bayar</th>
+                            <th>:</th>
+                            <th class="text-right">Rp <?= format_currency($pembelian['bayar']) ?></th>
+                        </tr>
+                        <tr>
+                            <th>Kembalian</th>
+                            <th>:</th>
+                            <th class="text-right">Rp <?= format_currency($pembelian['kembalian']) ?></th>
+                        </tr>
+                    <?php } else { ?>
+                        <tr>
+                            <th>Total Bayar</th>
+                            <th>:</th>
+                            <th class="text-right">Rp <?= format_currency($pembelian['total_bayar']) ?></th>
+                        </tr>
+                        <tr>
+                            <th>Sisa Tagihan</th>
+                            <th>:</th>
+                            <th class="text-right">Rp
+                                <?php
+                                $sisa_tagihan=floatval2($pembelian['total'])-floatval2($pembelian['total_bayar']);
+                                echo format_currency($sisa_tagihan);
+                                ?>
+                            </th>
+                        </tr>
+                    <?php } ?>
                 </table>
             </div>
 
         </div>
 
         <div style="text-align: end;">
-            <a class="btn btn-secondary" href="<?= base_url('item') ?>">Kembali</a>
+            <button id="pdf_print" type="button" class="btn btn-secondary">Print</button>
+            <a class="btn btn-secondary" href="<?= base_url('pembelian') ?>">Kembali</a>
         </div>
     </div>
 </div>
