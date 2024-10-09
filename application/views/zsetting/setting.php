@@ -17,7 +17,7 @@
                         <label for="company_logo">Logo Perusahaan</label>
                         <input type="file" accept="image/*" class="form-control-file" id="company_logo" name="company_logo" onchange="loadFile(event)">
                     </div>
-                    <img id="output" style="width: 200px;height: 200px;" src="<?= base_url($company_logo) ?>">
+                    <img id="output" style="width: 200px;height: 200px;border:1px solid #ccc" src="<?= base_url($company_logo) ?>">
                     <script>
                         var loadFile = function(event) {
                             var output = document.getElementById('output');
