@@ -40,7 +40,7 @@ class Pembelian extends CI_Controller
                 }
 
                 if ($key == 'total') {
-                    $val = "Rp ".format_currency($row['total']);
+                    $val = "Rp " . format_currency($row['total']);
                 }
                 if ($key == 'status') {
                     if ((floatval($row['total_bayar']) == 0)) {
@@ -163,7 +163,7 @@ class Pembelian extends CI_Controller
         }
 
         // print_r2($ko_output);
-        
+
 
         if ($success) {
             $this->db->trans_start(); # Starting Transaction
@@ -179,11 +179,11 @@ class Pembelian extends CI_Controller
             }
             $insert['total'] = floatval2($ko_output['total']);
             $insert['keterangan'] = $ko_output['keterangan'];
-            $insert['is_hutang']=intval($ko_output['is_hutang']);
+            $insert['is_hutang'] = intval($ko_output['is_hutang']);
 
-            if(!$ko_output['is_hutang']){
-                $insert['bayar']=floatval2($ko_output['bayar']);
-                $insert['kembalian']=floatval2($ko_output['kembalian']);
+            if (!$ko_output['is_hutang']) {
+                $insert['bayar'] = floatval2($ko_output['bayar']);
+                $insert['kembalian'] = floatval2($ko_output['kembalian']);
             }
 
             $this->db->insert('pembelian', $insert);
@@ -264,20 +264,21 @@ class Pembelian extends CI_Controller
         echo json_encode($res);
     }
 
-    function detail($id_pembelian=null){
+    function detail($id_pembelian = null)
+    {
 
         $this->load->model('Pembelian_model');
         $this->load->model('Pembelian_detail_model');
         $this->load->model('Pembelian_biaya_model');
-        $pembelian_model=new Pembelian_model();
-        $pembelian_detil_model=new Pembelian_detail_model();
-        $pembelian_biaya_model=new Pembelian_biaya_model();
-        
+        $pembelian_model = new Pembelian_model();
+        $pembelian_detil_model = new Pembelian_detail_model();
+        $pembelian_biaya_model = new Pembelian_biaya_model();
 
-        $content_data=array();
-        $content_data['pembelian']=$pembelian_model->detail($id_pembelian);
-        $content_data['pembelian_detil']=$pembelian_detil_model->detail($id_pembelian);
-        $content_data['pembelian_biaya']=$pembelian_biaya_model->detail($id_pembelian);
+
+        $content_data = array();
+        $content_data['pembelian'] = $pembelian_model->detail($id_pembelian);
+        $content_data['pembelian_detil'] = $pembelian_detil_model->detail($id_pembelian);
+        $content_data['pembelian_biaya'] = $pembelian_biaya_model->detail($id_pembelian);
 
         // print_r2($content_data['pembelian_biaya']);
 
@@ -288,23 +289,28 @@ class Pembelian extends CI_Controller
 
         $template->render();
     }
-    function detail_pdf($id_pembelian=null){
+    function detail_pdf($id_pembelian = null)
+    {
 
         $this->load->model('Pembelian_model');
         $this->load->model('Pembelian_detail_model');
         $this->load->model('Pembelian_biaya_model');
-        $pembelian_model=new Pembelian_model();
-        $pembelian_detil_model=new Pembelian_detail_model();
-        $pembelian_biaya_model=new Pembelian_biaya_model();
-        
+        $pembelian_model = new Pembelian_model();
+        $pembelian_detil_model = new Pembelian_detail_model();
+        $pembelian_biaya_model = new Pembelian_biaya_model();
 
-        $content_data=array();
-        $content_data['pembelian']=$pembelian_model->detail($id_pembelian);
-        $content_data['pembelian_detil']=$pembelian_detil_model->detail($id_pembelian);
-        $content_data['pembelian_biaya']=$pembelian_biaya_model->detail($id_pembelian);
+
+        $content_data = array();
+        $content_data['pembelian'] = $pembelian_model->detail($id_pembelian);
+        $content_data['pembelian_detil'] = $pembelian_detil_model->detail($id_pembelian);
+        $content_data['pembelian_biaya'] = $pembelian_biaya_model->detail($id_pembelian);
 
         // print_r2($content_data['pembelian_biaya']);
+        $this->load->view('pembelian/pembelian_detail_pdf', $content_data);
 
-        
+        // $content = $this->load->view('pembelian/pembelian_detail_pdf', $content_data, true);
+        // $html2pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'en');
+        // $html2pdf->writeHTML($content);
+        // $html2pdf->output();
     }
 }

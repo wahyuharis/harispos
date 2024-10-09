@@ -58,9 +58,10 @@ class Auth
         $userdata = $db->row_array();
 
         if ($userdata['nama_jabatan'] == 'superadmin') {
-            return true;
+
         } else {
-            return false;
+            $ci->session->set_flashdata('error_message', 'Maaf Anda Tidak Memiliki Akses');
+            redirect('home');
         }
     }
 }

@@ -218,3 +218,16 @@ if ($segment1 == 'keuangan') {
         <p>Keuangan</p>
     </a>
 </li>
+
+<?php
+$active = "";
+if ($segment1 == 'zsetting') {
+    $active = ' active ';
+}
+?>
+<li class="nav-item">
+    <a href="<?= base_url('zsetting') ?>" class="nav-link <?= $active ?>">
+        <i class="fas fa-cog"></i>
+        <p>Setting</p>
+    </a>
+</li>

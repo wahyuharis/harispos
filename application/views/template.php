@@ -154,6 +154,20 @@
             document.querySelector('.select2-search__field').focus();
         });
         $(document).ready(function() {
+
+            <?php if (strlen($this->session->flashdata('error_message')) > 0) { ?>
+
+                toastr.error('<?= $this->session->flashdata('error_message') ?>', 'Maaf');
+
+            <?php } ?>
+
+            <?php if (strlen($this->session->flashdata('success_message')) > 0) { ?>
+
+                toastr.success('<?= $this->session->flashdata('success_message') ?>', 'Info');
+
+            <?php } ?>
+
+
             $("#side_filter").on('keyup change', function(e) {
                 var filter = $(this).val(),
                     count = 0;
@@ -171,6 +185,7 @@
                     }
                 });
             });
+
         });
     </script>
 </body>
