@@ -117,11 +117,16 @@ class Kategori extends CI_Controller
                 $insert['nama_kategori'] = in_post('nama_kategori');
 
                 $this->db->insert('m_kategori', $insert);
+
+                $this->session->set_flashdata('success_message','Tambah Berhasil');
             } else {
                 $insert['nama_kategori'] = in_post('nama_kategori');
 
                 $this->db->where('id_kategori', $id);
                 $this->db->update('m_kategori', $insert);
+
+                $this->session->set_flashdata('success_message','Edit Berhasil');
+
             }
         }
 

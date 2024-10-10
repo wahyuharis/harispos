@@ -255,6 +255,9 @@ class Item extends CI_Controller
                 $insert['keterangan'] = in_post('keterangan');
 
                 $this->db->insert('m_item', $insert);
+
+                $this->session->set_flashdata('success_message','Tambah Berhasil');
+
             } else {
                 $insert['barcode'] = in_post('barcode');
                 $insert['nama_item'] = in_post('nama_item');
@@ -267,6 +270,9 @@ class Item extends CI_Controller
 
                 $this->db->where('id_item', $id);
                 $this->db->update('m_item', $insert);
+
+                $this->session->set_flashdata('success_message','Edit Berhasil');
+
             }
         }
 

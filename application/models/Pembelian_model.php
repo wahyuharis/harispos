@@ -90,7 +90,8 @@ WHERE 1
 				pembelian.keterangan,
 				pembelian.is_hutang,
 				pembelian.bayar,
-				pembelian.kembalian
+				pembelian.kembalian,
+				pembelian.id_users
 				FROM
 				pembelian
 				LEFT JOIN m_kontak ON m_kontak.id_kontak=pembelian.id_kontak

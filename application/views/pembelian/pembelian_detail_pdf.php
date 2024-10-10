@@ -149,9 +149,9 @@ $setting_model = new Setting_model();
                         </tr>
                     <?php } ?>
                     <tr>
-                        <th>Total</th>
-                        <th>:</th>
-                        <th class="text-right">Rp <?= format_currency($pembelian['total']) ?></th>
+                        <th style="width: 190px;">Total</th>
+                        <th style="width: 10px;">:</th>
+                        <th class="text-right" style="width: 190px;">Rp <?= format_currency($pembelian['total']) ?></th>
                     </tr>
                     <?php if ($pembelian['is_hutang'] < 1) { ?>
                         <tr>
@@ -186,7 +186,7 @@ $setting_model = new Setting_model();
         </tr>
     </table>
     <br>
-    Admin : Admin Name
+    Kasir : <?php echo get_column('users',array('id_users'=>$pembelian['id_users']),'username') ?>
 
 
 </body>

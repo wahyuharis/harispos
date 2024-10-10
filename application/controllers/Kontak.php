@@ -167,6 +167,9 @@ class Kontak extends CI_Controller
                 $insert['is_karyawan'] = intval(in_post('is_karyawan'));
 
                 $this->db->insert('m_kontak', $insert);
+
+                $this->session->set_flashdata('success_message','Tambah Berhasil');
+
             } else {
 
                 $insert['nama_kontak'] = in_post('nama_kontak');
@@ -181,6 +184,8 @@ class Kontak extends CI_Controller
 
                 $this->db->where('id_kontak', $id);
                 $this->db->update('m_kontak', $insert);
+
+                $this->session->set_flashdata('success_message','Edit Berhasil');
             }
         }
 

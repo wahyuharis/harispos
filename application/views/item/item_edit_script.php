@@ -13,7 +13,7 @@
 
         $('select[name=id_kategori]').select2({
             // minimumInputLength: 2,
-            placeholder: "Ketik Nama Kontak",
+            placeholder: "Ketik Nama Kategori",
             allowClear: true,
             ajax: {
                 url: '<?= base_url('kategori/select2_kategori') ?>',

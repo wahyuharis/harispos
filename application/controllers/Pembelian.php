@@ -1,7 +1,5 @@
 <?php
 
-use Dompdf\Dompdf;
-
 class Pembelian extends CI_Controller
 {
 
@@ -10,6 +8,8 @@ class Pembelian extends CI_Controller
         parent::__construct();
         $auth = new Auth();
         $auth->logged_in();
+
+        // print_r2($this->session->userdata());
     }
 
     function index()
@@ -187,6 +187,7 @@ class Pembelian extends CI_Controller
                 $insert['bayar'] = floatval2($ko_output['bayar']);
                 $insert['kembalian'] = floatval2($ko_output['kembalian']);
             }
+            $insert['id_users']=$this->session->userdata('id_users');
 
             $this->db->insert('pembelian', $insert);
             $insert_id = $this->db->insert_id();
@@ -254,6 +255,9 @@ class Pembelian extends CI_Controller
                 $this->db->trans_rollback();
             } else {
                 $this->db->trans_commit();
+
+                $this->session->set_flashdata('success_message','Tambah Berhasil');
+
             }
         }
 

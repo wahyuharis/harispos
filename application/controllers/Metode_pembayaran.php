@@ -126,6 +126,9 @@ class Metode_pembayaran extends CI_Controller
                 $insert['no_rekening'] = in_post('no_rekening');
 
                 $this->db->insert('metode_pembayaran', $insert);
+
+                $this->session->set_flashdata('success_message','Tambah Berhasil');
+
             } else {
                 $insert['nama_metode_pembayaran'] = in_post('nama_metode_pembayaran');
                 $insert['bank'] = in_post('bank');
@@ -133,6 +136,9 @@ class Metode_pembayaran extends CI_Controller
 
                 $this->db->where('id_metode_pembayaran', $id);
                 $this->db->update('metode_pembayaran', $insert);
+
+                $this->session->set_flashdata('success_message','Edit Berhasil');
+
             }
         }
 
