@@ -1,7 +1,6 @@
 <script>
     $(document).ready(function() {
-        // $('select[name=id_kota]').select2();
-
+        
         $('#form_1').submit(function(e) {
             e.preventDefault();
             Custom_loading();

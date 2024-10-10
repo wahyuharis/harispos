@@ -144,7 +144,7 @@
 
         <div style="text-align: end;">
             <button id="pdf_print" type="button" class="btn btn-info">Print</button>
-            <a target="_blank" href="<?=base_url('pembelian/detail_pdf')?>" class="btn btn-danger">PDF</a>
+            <a target="_blank" href="<?=base_url('pembelian/detail_pdf/'.$id_pembelian)?>" class="btn btn-danger">PDF</a>
             <a class="btn btn-secondary" href="<?= base_url('pembelian') ?>">Kembali</a>
         </div>
     </div>

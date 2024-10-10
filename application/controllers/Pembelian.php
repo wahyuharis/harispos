@@ -1,5 +1,7 @@
 <?php
 
+use Dompdf\Dompdf;
+
 class Pembelian extends CI_Controller
 {
 
@@ -276,6 +278,7 @@ class Pembelian extends CI_Controller
 
 
         $content_data = array();
+        $content_data['id_pembelian'] = $id_pembelian;
         $content_data['pembelian'] = $pembelian_model->detail($id_pembelian);
         $content_data['pembelian_detil'] = $pembelian_detil_model->detail($id_pembelian);
         $content_data['pembelian_biaya'] = $pembelian_biaya_model->detail($id_pembelian);
@@ -305,12 +308,14 @@ class Pembelian extends CI_Controller
         $content_data['pembelian_detil'] = $pembelian_detil_model->detail($id_pembelian);
         $content_data['pembelian_biaya'] = $pembelian_biaya_model->detail($id_pembelian);
 
-        // print_r2($content_data['pembelian_biaya']);
-        $this->load->view('pembelian/pembelian_detail_pdf', $content_data);
 
-        // $content = $this->load->view('pembelian/pembelian_detail_pdf', $content_data, true);
-        // $html2pdf = new \Spipu\Html2Pdf\Html2Pdf('P', 'A4', 'en');
-        // $html2pdf->writeHTML($content);
-        // $html2pdf->output();
+
+        // print_r2($content_data['pembelian']);
+        // $this->load->view('pembelian/pembelian_detail_pdf', $content_data);
+
+        $content = $this->load->view('pembelian/pembelian_detail_pdf', $content_data, true);
+        $html2pdf = new \Spipu\Html2Pdf\Html2Pdf('L', 'A5', 'en');
+        $html2pdf->writeHTML($content);
+        $html2pdf->output();
     }
 }

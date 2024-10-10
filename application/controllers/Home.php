@@ -20,6 +20,7 @@ class Home extends CI_Controller
         $template->set_html('');
         $template->set_title('Home');
         $template->render();
+
     }
 
 }
